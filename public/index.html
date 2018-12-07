@@ -1,18 +1,105 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Blog Post API</title>
-    <meta name="description" content="Shopping and to do lists">
-    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon-app.ico" type="image/x-icon">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<html lang="en">
+
+<head>
+  <title>Trackr</title>
+  <meta name="description" content="Automate your travel blogging.">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>Trackr</h1>
+  <h3>Automate your travel blogging</h3>
+  <main role="main">
+
+    <!-- SIGN IN -->
+    <section id="log-in" class="cont">
+      <form class="signin-form">
+        <h2>Log in</h2>
+
+        <label for="username">Username
+          <input type="text" id="username" name="username" />
+        </label>
+
+        <label>Password
+          <input type="password" id="password" name="password" />
+        </label>
+
+        <button type="submit" class="login-button" role="button">Sign In</button>
+        <p>Demo Login: TestUser | password</p>
+        <!-- <p class="forgot-pass">Forgot password?</p> -->
+        <!-- <p class="create-account">Create an account</p> -->
+      </form>
+    </section>
+
+    <!-- SIGN UP -->
+    <section id="sign-up" class="sub-cont">
+
+      <form class="signup-form">
+        <h2>Sign up</h2>
+        <!-- 
+				<label for="firstname">First Name
+					<input type="text" id="firstname" name="firstname"/>
+				</label>
+		      
+				<label for="lastname">Last Name
+					<input type="text" id="lastname" name="lastname"/>
+				</label> -->
+
+        <label for="new-username">Username
+          <input type="text" id="new-username" name="new-username" />
+        </label>
+
+        <label>Password
+          <input type="password" id="new-password" name="new-password" />
+        </label>
+
+        <button type="button" class="submit" role="button">Sign Up</button>
+        <p>Demo Login: TestUser | password</p>
+        <!-- <p class="have-account">I've got an account</p> -->
+      </form>
+    </section>
+
+    <section class="user-page hidden">
+      <form>
+        <h2>Add a place and details about your visit</h2>
+
+        <label for="place">Place
+          <input type="text" id="place" name="place" />
+        </label>
+        <br>
+        <label for="ate">Where we ate
+          <input type="text" id="ate" name="ate" />
+        </label>
+        <br>
+        <label for="stay">Where we slept
+          <input type="text" id="stay" name="stay" />
+        </label>
+        <br>
+        <label for="notes">Add some notes
+          <input type="text" id="notes" name="notes" />
+        </label>
+        <br>
+        <button type="submit" class="submit" role="button">Save</button>
+
+        <section class="entries">
+          <!-- entries go here -->
+
+      </form>
+    </section>
 
 
-  </head>
-  <body>
-    <h1>Trackr</h1>
 
-  </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- javaScript -->
+    <script type="text/javascript" src="client.js"></script>
+
+</body>
+
 </html>
