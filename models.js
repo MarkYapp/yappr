@@ -1,5 +1,9 @@
 const uuid = require('uuid');
 
+//replace volatile with database storage
+//define models here
+
+
 // this module provides volatile storage, using a `ShoppingList`
 // and `Recipes` model. We haven't learned about databases yet,
 // so for now we're using in-memory storage. This means each time
@@ -34,7 +38,6 @@ const Entries = {
     return item;
   },
   get: function () {
-    console.log('Retreiving recipes');
     return Object.keys(this.items).map(key => this.items[key]);
   },
   delete: function (itemId) {
