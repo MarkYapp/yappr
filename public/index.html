@@ -21,14 +21,14 @@
         <h2>Log in</h2>
 
         <label for="username">Username
-          <input type="text" id="username" name="username" />
+          <input type="text" id="username" name="username" required />
         </label>
 
         <label>Password
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" required />
         </label>
 
-        <button type="submit" class="login-button" role="button">Sign In</button>
+        <button type="submit" id="login-button" role="button">Sign In</button>
         <p>Demo Login: TestUser | password</p>
         <!-- <p class="forgot-pass">Forgot password?</p> -->
         <!-- <p class="create-account">Create an account</p> -->
@@ -49,10 +49,11 @@
           <input type="password" id="new-password" name="new-password" />
         </label>
 
-        <button type="button" class="submit" role="button">Sign Up</button>
-        <p>Demo Login: TestUser | password</p>
+        <button type="button" id="user-signup" class="submit" role="button">Sign Up</button>
+
         <!-- <p class="have-account">I've got an account</p> -->
       </form>
+      <p class="signup-status"></p>
     </section>
 
     <section class="user-page hidden">
