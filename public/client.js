@@ -6,27 +6,6 @@ function handleErrors(response) {
   return response;
 }
 
-// user signup request with ajax
-// function createNewUser() {
-//   let newUserInfo = {};
-//   newUserInfo.username = $('#new-username').val();
-//   newUserInfo.password = $('#new-password').val();
-//   console.log(newUserInfo);
-//   $.ajax({
-//     url: "/api/users",
-//     type: "POST",
-//     data: JSON.stringify(newUserInfo),
-//     dataType: "json",
-//     contentType: "application/json; charset=utf-8",
-//     success: function (data) {
-//       console.log("newUserInfo received");
-//     },
-//     error: function (request, status, error) {
-//       alert(request.responseText);
-//     }
-//   });
-// }
-
 function createNewUser(newUserInfo) {
   fetch('/api/users',
     {
@@ -93,17 +72,12 @@ function logInUser() {
     .catch(error => console.log(error.message));
 }
 
-
-
 $(function listenForLogin() {
   $('#login-button').click(function (event) {
     event.preventDefault();
     logInUser();
   })
 })
-
-
-localStorage.getItem('authToken')
 
 
 //POST an entry using ajax
