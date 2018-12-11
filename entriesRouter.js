@@ -36,7 +36,7 @@ router.get('/:id', (req, res) => {
 //POST request
 router.post("/", jsonParser, (req, res) => {
   console.log("POST request received")
-  const requiredFields = ["place", "notes"];
+  const requiredFields = ["activity", "notes"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -46,10 +46,10 @@ router.post("/", jsonParser, (req, res) => {
     }
   }
 
+
   Entry.create({
-    place: req.body.place,
-    eat: req.body.eat,
-    sleep: req.body.sleep,
+    activity: req.body.activity,
+    location: req.body.location,
     notes: req.body.notes
   })
     .then(entry => res.status(201).json(entry))
@@ -74,7 +74,7 @@ router.put("/:id", jsonParser, (req, res) => {
   // if the user sent over any of the updatableFields, we udpate those values
   // in document
   const toUpdate = {};
-  const updateableFields = ["place", "eat", "sleep", "notes"];
+  const updateableFields = ["activity", "location", "notes"];
 
   updateableFields.forEach(field => {
     if (field in req.body) {

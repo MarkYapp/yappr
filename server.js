@@ -51,7 +51,7 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   });
 });
 
-const entriesRouter = require('./entriesRouter.js');
+const entriesRouter = require('./entriesRouter');
 app.use('/entries', entriesRouter);
 
 app.use('*', function (req, res) {

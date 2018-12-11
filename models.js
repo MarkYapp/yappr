@@ -13,11 +13,10 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose disconnected');
 });
 
-const entrySchema = mongoose.Schema({
+const entriesSchema = mongoose.Schema({
 
-  place: { type: String, required: true },
-  eat: String,
-  sleep: String,
+  activity: { type: String, required: true },
+  location: { type: String, required: true },
   notes: String
 })
 
@@ -29,7 +28,7 @@ const entrySchema = mongoose.Schema({
 //   }
 // }
 
-const Entry = mongoose.model("Entry", entrySchema, 'entries');
+const Entry = mongoose.model("Entry", entriesSchema);
 
 module.exports = { Entry };
 

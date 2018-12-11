@@ -6,6 +6,7 @@ function handleErrors(response) {
   return response;
 }
 
+//POST new user
 function createNewUser(newUserInfo) {
   fetch('/api/users',
     {
@@ -13,7 +14,6 @@ function createNewUser(newUserInfo) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      credentials: 'include',
       method: "POST",
       body: JSON.stringify(newUserInfo)
     })
@@ -35,26 +35,20 @@ $(function listenForSignup() {
     let newUserInfo = {};
     newUserInfo.username = $('#new-username').val();
     newUserInfo.password = $('#new-password').val();
-    console.log(newUserInfo);
     createNewUser(newUserInfo);
     $('#new-username').val('');
     $('#new-password').val('');
   })
 })
 
-//user login request with fetch
-function logInUser() {
-  let userInfo = {};
-  userInfo.username = $('#username').val();
-  userInfo.password = $('#password').val();
-  console.log(userInfo);
+//POST user login
+function logInUser(userInfo) {
   fetch('/api/auth/login',
     {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      credentials: 'include',
       method: "POST",
       body: JSON.stringify(userInfo)
     })
@@ -63,9 +57,9 @@ function logInUser() {
       return response.json()
     })
     .then(data => {
-      console.log(`authToken: ${data.authToken}`);
       localStorage.setItem('authToken', data.authToken);
-      $('.user-page').removeClass('hidden');
+      // location.pathname = '/users';
+      $('.user-dashboard').removeClass('hidden');
       $("#log-in").addClass("hidden");
       $("#sign-up").addClass("hidden");
     })
@@ -75,36 +69,49 @@ function logInUser() {
 $(function listenForLogin() {
   $('#login-button').click(function (event) {
     event.preventDefault();
-    logInUser();
+    let userInfo = {};
+    userInfo.username = $('#username').val();
+    userInfo.password = $('#password').val();
+    logInUser(userInfo);
   })
 })
 
+$(function swapForms() {
+  $('main').on('click', '#signup-link', function (event) {
+    $("#log-in").addClass("hidden");
+    $("#sign-up").removeClass("hidden");
+  })
+  $('main').on('click', '#login-link', function (event) {
+    $("#log-in").removeClass("hidden");
+    $("#sign-up").addClass("hidden");
+  })
+})
 
-//POST an entry using ajax
-function postEntryForm() {
-  let formInfo = {};
-  formInfo.location = $('.location').val();
-  formInfo.details = $('.restaurants').val();
-  // formInfo.sleepspot = $('.sleep-spot').val();
-  // formInfo.notes = $('.notes').val();
-  console.log(formInfo);
+//POST a blog entry using ajax
+function postNewEntry(newEntry) {
   jQuery.ajax({
     url: "/entries",
     type: "POST",
-    data: JSON.stringify(formInfo),
+    data: JSON.stringify(newEntry),
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     success: function (data) {
-      console.log("it worked!");
-      $('.results').html(`<p>${data.location}<br>${data.details}</p>`);
+      console.log("successfully added new entry");
+      $('.entries').html(`<p>${data.activity}<br>${data.location}<br>${data.notes}</p>`);
     }
   });
 }
 
 $(function listenForEntrySubmit() {
-  $('#submit').click(function (event) {
+  $('main').on('click', '#submit-entry-button', function (event) {
     event.preventDefault();
-    postEntryForm();
+    console.log("new entry submit clicked");
+    let newEntry = {};
+    newEntry.activity = $('#activity').val();
+    newEntry.location = $('#location').val();
+    newEntry.notes = $('#notes').val();
+    console.log(newEntry);
+    postNewEntry(newEntry);
   })
 })
 

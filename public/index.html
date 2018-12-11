@@ -11,8 +11,9 @@
 </head>
 
 <body>
-  <h1>Trackr</h1>
-  <h3>Automate your travel blogging</h3>
+  <img src="/img/icon-above-font.png" class="icon-large" alt="The yapper logo, a camper van">
+  <h1>Yappr</h1>
+  <h3>Travel blogging made easy.</h3>
   <main role="main">
 
     <!-- SIGN IN -->
@@ -30,13 +31,12 @@
 
         <button type="submit" id="login-button" role="button">Sign In</button>
         <p>Demo Login: TestUser | password</p>
-        <!-- <p class="forgot-pass">Forgot password?</p> -->
-        <!-- <p class="create-account">Create an account</p> -->
+        <p class="new-user homepage-link">New user? Sign up <a href="#" id="signup-link">here</a></p>
       </form>
     </section>
 
     <!-- SIGN UP -->
-    <section id="sign-up">
+    <section id="sign-up" class="hidden">
 
       <form class="signup-form">
         <h2>Sign up</h2>
@@ -50,38 +50,34 @@
         </label>
 
         <button type="button" id="user-signup" class="submit" role="button">Sign Up</button>
-
         <!-- <p class="have-account">I've got an account</p> -->
+        <p class="new-user homepage-link">Have an account? Log in <a href="#" id="login-link">here</a></p>
       </form>
       <p class="signup-status"></p>
     </section>
 
-    <section class="user-page hidden">
-      <form>
-        <h2>Add a place and details about your visit</h2>
+    <!-- Dashboard -->
+    <section class="user-dashboard hidden">
+      <form class="new-entry-form">
+        <h2>Add a blog post</h2>
 
-        <label for="place">Place
-          <input type="text" id="place" name="place" />
+        <label for="activity">Activity
+          <input type="text" id="activity" name="activity" />
+        </label>
+        <label for="location">Location
+          <input type="text" id="location" name="location" />
         </label>
         <br>
-        <label for="ate">Where we ate
-          <input type="text" id="ate" name="ate" />
-        </label>
-        <br>
-        <label for="stay">Where we slept
-          <input type="text" id="stay" name="stay" />
-        </label>
-        <br>
-        <label for="notes">Add some notes
+        <label for="notes">Notes
           <input type="text" id="notes" name="notes" />
         </label>
         <br>
-        <button type="submit" class="submit" role="button">Save</button>
-
-        <section class="entries">
-          <!-- entries go here -->
-
+        <button type="button" id="submit-entry-button" role="button">Save</button>
       </form>
+
+      <!-- entries go here -->
+      <div class="entries"></div>
+
     </section>
 
 
