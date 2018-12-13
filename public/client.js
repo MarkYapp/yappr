@@ -130,8 +130,7 @@ function getResults() {
       return response.json()
     })
     .then(responseJson => {
-      console.log(responseJson);
-      $('.results').append(responseJson[0].location);
+      renderResults(responseJson);
     })
 }
 
@@ -142,6 +141,40 @@ $(function listenForResults() {
   })
 })
 
+//GET entries on page load
+$(getResults());
+
+//add results to DOM
+function renderResults(results) {
+  const entries = results.entries
+  console.log(entries);
+  const entriesElementString = generateEntryElementString(entries);
+  $('.entries-results').html(entriesElementString);
+}
+
+//
+function generateEntryElement(entry, Index) {
+  return `
+    <li class="js-item-index-element" data-item-index="${Index}">
+      <span class="shopping-item js-shopping-item"><h2>Activity: ${entry.activity}; Location: ${entry.location}</h2><p>${entry.notes}</p></span>
+      <div class="shopping-item-controls">
+        <button class="shopping-item-toggle js-item-toggle">
+            <span class="button-label">edit</span>
+        </button>
+        <button class="shopping-item-delete js-item-delete">
+            <span class="button-label">delete</span>
+        </button>
+      </div>
+    </li>`;
+}
+
+function generateEntryElementString(entriesList) {
+  console.log("Generating entry list element");
+
+  const entries = entriesList.map((entry, index) => generateEntryElement(entry, index));
+
+  return entries.join("");
+}
 
 
 

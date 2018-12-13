@@ -1,6 +1,8 @@
 "use strict";
 
 const mongoose = require("mongoose");
+var moment = require('moment');
+moment().format();
 
 //feedback on mongoose connection
 mongoose.connection.on('connected', function () {
@@ -17,16 +19,20 @@ const entriesSchema = mongoose.Schema({
 
   activity: { type: String, required: true },
   location: { type: String, required: true },
-  notes: String
+  notes: String,
+  time: { type: Date, default: Date.now }
 })
 
-// entrySchema.methods.serialize = function () {
-//   return {
-//     author: this.author.firstName + ' ' + this.author.lastName,
-//     title: this.title,
-//     content: this.content
-//   }
-// }
+entriesSchema.methods.serialize = function () {
+  return {
+    activity: this.activity,
+    location: this.location,
+    notes: this.notes,
+    // time: this.time,
+    // time2: moment(this.time),
+    // time3: moment(this.time).unix()
+  }
+}
 
 const Entry = mongoose.model("Entry", entriesSchema);
 

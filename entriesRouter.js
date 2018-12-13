@@ -9,10 +9,12 @@ const { Entry } = require('./models');
 
 //GET request to /blog-posts, return all
 router.get('/', (req, res) => {
+  Entry.find(function (entries) { console.log(entries) })
   Entry.find()
     .then(entry => {
+
       res.json({
-        entry: entry.map(entry => entry)
+        entries: entry.map(entry => entry.serialize())
       });
     })
     .catch(err => {
@@ -95,6 +97,8 @@ router.delete("/:id", (req, res) => {
     .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
 
+
+//hard code entries here
 
 module.exports = router;
 
