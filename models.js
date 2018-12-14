@@ -25,10 +25,11 @@ const entriesSchema = mongoose.Schema({
 
 entriesSchema.methods.serialize = function () {
   return {
+    id: this._id,
     activity: this.activity,
     location: this.location,
     notes: this.notes,
-    // time: this.time,
+    time: this.time
     // time2: moment(this.time),
     // time3: moment(this.time).unix()
   }

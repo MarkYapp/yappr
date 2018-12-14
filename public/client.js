@@ -134,6 +134,7 @@ function getResults() {
     })
 }
 
+//maybe won't use b/c getResults runs on page load
 $(function listenForResults() {
   $('#results').click(function (event) {
     event.preventDefault();
@@ -152,28 +153,61 @@ function renderResults(results) {
   $('.entries-results').html(entriesElementString);
 }
 
-//
+//generate an HTML element representing each entry
 function generateEntryElement(entry, Index) {
   return `
-    <li class="js-item-index-element" data-item-index="${Index}">
-      <span class="shopping-item js-shopping-item"><h2>Activity: ${entry.activity}; Location: ${entry.location}</h2><p>${entry.notes}</p></span>
+    <li class="js-item-index-element" data-index="${entry.id}">
+      <span class="shopping-item js-shopping-item"><h2>Activity: ${entry.activity} | Location: ${entry.location}</h2><p>${entry.notes}</p></span>
       <div class="shopping-item-controls">
         <button class="shopping-item-toggle js-item-toggle">
             <span class="button-label">edit</span>
         </button>
-        <button class="shopping-item-delete js-item-delete">
+        <button class="entry-delete-button js-item-delete">
             <span class="button-label">delete</span>
         </button>
       </div>
     </li>`;
 }
 
+//generate one long string containing all entries
 function generateEntryElementString(entriesList) {
   console.log("Generating entry list element");
 
   const entries = entriesList.map((entry, index) => generateEntryElement(entry, index));
 
   return entries.join("");
+}
+
+function getEntryIndex(entry) {
+  const entryID = $(entry).closest('.js-item-index-element').attr('data-index');
+  return entryID;
+}
+
+//listen for entry delete
+$(function listenForDelete() {
+  $('.entries-results').on('click', '.entry-delete-button', (function (event) {
+    event.preventDefault();
+    const entryID = getEntryIndex(event.currentTarget);
+    deleteEntry(entryID);
+  })
+  )
+});
+
+//delete an entry
+function deleteEntry(entryID) {
+  fetch(`/entries/${entryID}`,
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "DELETE"
+    })
+    .then(function () {
+      getResults();
+    }
+    )
+    .catch(error => console.log(error.message));
 }
 
 
