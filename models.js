@@ -1,6 +1,9 @@
 "use strict";
 
 const mongoose = require("mongoose");
+
+const User = require('./users/models');
+
 var moment = require('moment');
 moment().format();
 
@@ -16,7 +19,7 @@ mongoose.connection.on('disconnected', function () {
 });
 
 const entriesSchema = mongoose.Schema({
-
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   activity: { type: String, required: true },
   location: { type: String, required: true },
   notes: String,
@@ -26,6 +29,7 @@ const entriesSchema = mongoose.Schema({
 entriesSchema.methods.serialize = function () {
   return {
     id: this._id,
+    user: this.user,
     activity: this.activity,
     location: this.location,
     notes: this.notes,

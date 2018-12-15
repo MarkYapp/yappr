@@ -16,7 +16,7 @@
   <h3>Travel blogging made easy.</h3>
   <main role="main">
 
-    <!-- SIGN IN -->
+    <!-- Sign in form -->
     <section id="log-in">
       <form class="signin-form">
         <h2>Log in</h2>
@@ -35,7 +35,7 @@
       </form>
     </section>
 
-    <!-- SIGN UP -->
+    <!-- Sign up form -->
     <section id="sign-up" class="hidden">
 
       <form class="signup-form">
@@ -58,25 +58,27 @@
 
     <!-- Dashboard -->
     <section class="user-dashboard hidden">
-      <form class="new-entry-form">
-        <h2>Add a blog post</h2>
-
-        <label for="activity">Activity
-          <input type="text" id="activity" name="activity" />
-        </label>
-        <label for="location">Location
-          <input type="text" id="location" name="location" />
-        </label>
-        <br>
-        <label for="notes">Notes
-          <input type="text" id="notes" name="notes" />
-        </label>
-        <br>
-        <button type="button" id="submit-entry-button" role="button">Save</button>
-      </form>
+      <button class="add-entry-button">Add an entry</button>
 
       <!-- add entry modal -->
-      <div class="add-entry-modal hidden"></div>
+      <div class="add-entry-modal hidden">
+        <form class="new-entry-form">
+          <h2>Add a blog post</h2>
+
+          <label for="activity">Activity
+            <input type="text" id="activity" name="activity" />
+          </label>
+          <label for="location">Location
+            <input type="text" id="location" name="location" />
+          </label>
+          <br>
+          <label for="notes">Notes
+            <input type="text" id="notes" name="notes" />
+          </label>
+          <br>
+          <button type="button" id="submit-entry-button" role="button">Save</button>
+        </form>
+      </div>
 
       <!-- entries go here -->
       <ul class="entries-results"></ul>
@@ -86,9 +88,9 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- javaScript -->
+    <script type="text/javascript" src="auth.js"></script>
     <script type="text/javascript" src="client.js"></script>
-
+  </main>
 </body>
 
 </html>
