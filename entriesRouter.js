@@ -6,10 +6,8 @@ const jsonParser = bodyParser.json();
 
 const { Entry } = require('./models');
 
-
 //GET request to /blog-posts, return all
 router.get('/', (req, res) => {
-  Entry.find(function (entries) { console.log(entries) })
   Entry.find()
     .then(entry => {
 
@@ -27,7 +25,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Entry.findById(req.params.id)
     .then(entry => {
-      res.json(entry)
+      res.json(entry.serialize())
     })
     .catch(err => {
       console.error(err);
@@ -38,7 +36,7 @@ router.get('/:id', (req, res) => {
 //POST request
 router.post("/", jsonParser, (req, res) => {
   console.log("POST request received")
-  const requiredFields = ["activity", "notes"];
+  const requiredFields = ["activity", "location"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -50,6 +48,7 @@ router.post("/", jsonParser, (req, res) => {
 
 
   Entry.create({
+    // user: req.body.user,
     activity: req.body.activity,
     location: req.body.location,
     notes: req.body.notes

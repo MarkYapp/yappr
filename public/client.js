@@ -1,3 +1,4 @@
+
 //error handling
 function handleErrors(response) {
   if (!response.ok) {
@@ -5,6 +6,7 @@ function handleErrors(response) {
   }
   return response;
 }
+
 
 
 //POST a blog entry using ajax
@@ -32,20 +34,36 @@ $(function listenForEntrySubmit() {
     newEntry.notes = $('#notes').val();
     console.log(newEntry);
     postNewEntry(newEntry);
+    $('#activity').val('');
+    $('#location').val('');
+    $('#notes').val('');
     hideEntryModal();
+    $('.user-dashboard').removeClass('opaque');
+
+  })
+})
+
+//listen for new entry button
+$(function listenForNewEntry() {
+  $('main').on('click', '.add-entry-button', function (event) {
+    event.preventDefault();
+    console.log('add entry button clicked');
+    displayEntryModal();
+    $('#edit-entry-button').addClass('hidden');
   })
 })
 
 //functioning get request using fetch
 function getResults() {
-  console.log('getRequest2 called');
+  console.log('getResults called');
   fetch('/entries',
     {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      method: "GET"
+      method: "GET",
+
     })
     .then(response => {
       return response.json()
@@ -55,21 +73,28 @@ function getResults() {
     })
 }
 
-//maybe won't use b/c getResults runs on page load
-// $(function listenForResults() {
-//   $('#results').click(function (event) {
-//     event.preventDefault();
-//     getResults();
-//   })
-// })
+// //GET for current user
+// function getResults() {
+//   fetch('/entries',
+//     {
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//       },
+//       method: "GET"
+//     })
+//     .then(response => {
+//       return response.json()
+//     })
+//     .then(responseJson => {
+//       renderResults(responseJson);
+//     })
+// }
 
-//GET entries on page load
-$(getResults());
 
 //add results to DOM
 function renderResults(results) {
   const entries = results.entries
-  console.log(entries);
   const entriesElementString = generateEntryElementString(entries);
   $('.entries-results').html(entriesElementString);
 }
@@ -77,13 +102,13 @@ function renderResults(results) {
 //generate an HTML element representing each entry
 function generateEntryElement(entry, Index) {
   return `
-    <li class="js-item-index-element" data-index="${entry.id}">
-      <span class="shopping-item js-shopping-item"><h2>Date: ${entry.time}<br>Activity: ${entry.activity} | Location: ${entry.location}</h2><p>${entry.notes}</p></span>
-      <div class="shopping-item-controls">
-        <button class="shopping-item-toggle js-item-toggle">
+    <li class="entry-list-element" entry-index="${entry.id}">
+      <span class="entry-item"><h2>Date: ${entry.time}<br>Activity: ${entry.activity} | Location: ${entry.location}</h2><p>${entry.notes}</p></span>
+      <div class="entry-controls">
+        <button class="entry-edit-button">
             <span class="button-label">edit</span>
         </button>
-        <button class="entry-delete-button js-item-delete">
+        <button class="entry-delete-button">
             <span class="button-label">delete</span>
         </button>
       </div>
@@ -92,7 +117,6 @@ function generateEntryElement(entry, Index) {
 
 //generate one long string containing all entries
 function generateEntryElementString(entriesList) {
-  console.log("Generating entry list element");
 
   const entries = entriesList.map((entry, index) => generateEntryElement(entry, index));
 
@@ -100,7 +124,7 @@ function generateEntryElementString(entriesList) {
 }
 
 function getEntryIndex(entry) {
-  const entryID = $(entry).closest('.js-item-index-element').attr('data-index');
+  const entryID = $(entry).closest('.entry-list-element').attr('entry-index');
   return entryID;
 }
 
@@ -132,42 +156,115 @@ function deleteEntry(entryID) {
 }
 
 //update an entry
-function putEntry(req, entryID) {
-  fetch(`/entries/${entryID}`,
+function editEntry(req) {
+  fetch(`/entries/${req.id}`,
     {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: "PUT",
-      body: json.stringify(req)
+      body: JSON.stringify(req)
     })
     .then(function () {
-      console.log('PUT res received');
-      getResults();
+      console.log('Entry successfully updated');
     }
     )
     .catch(error => console.log(error.message));
 }
 
+//get one entry
+function getOne(entryID) {
+  fetch(`/entries/${entryID}`,
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "GET"
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(res => {
+      populateEditFields(res);
+    }
+    )
+    .catch(error => console.log(error.message));
+}
+
+//auto-fill fields to be edited
+function populateEditFields(entrytoUpdate) {
+  console.log('populating entry fields');
+  console.log(entrytoUpdate);
+  $('#entry-id').html(`${entrytoUpdate.id}`)
+  $('#activity').val(`${entrytoUpdate.activity}`);
+  $('#location').val(`${entrytoUpdate.location}`);
+  $('notes').val(`${entrytoUpdate.notes}`);
+}
+
+//listen for entry edit button
+$(function listenForEditEntry() {
+  $('main').on('click', '.entry-edit-button', function (event) {
+    event.preventDefault();
+    displayEntryModal();
+    $('#submit-entry-button').addClass('hidden');
+    $('#edit-entry-button').removeClass('hidden');
+    const entryID = getEntryIndex(event.currentTarget);
+    console.log(entryID);
+    getOne(entryID);
+  })
+})
+
+//listen for user to submit edited entry
+$(function listenForEditSubmit() {
+  $('main').on('click', '#edit-entry-button', function (event) {
+    event.preventDefault();
+    console.log('edit entry button clicked');
+    let editedEntry = {};
+    editedEntry.activity = $('#activity').val();
+    editedEntry.location = $('#location').val();
+    editedEntry.notes = $('#notes').val();
+    editedEntry.id = $('#entry-id').html();
+    console.log(JSON.stringify(editedEntry));
+    editEntry(editedEntry);
+    hideEntryModal();
+    getResults();
+    $('#activity').val('');
+    $('#location').val('');
+    $('notes').val('');
+  });
+})
+
+
+
 function displayEntryModal() {
-  console.log('displayEntryModal ran');
   $('.add-entry-modal').removeClass('hidden');
+  $('.user-dashboard').addClass('opaque');
 }
 
 function hideEntryModal() {
-  console.log('hideEntryModal ran');
   $('.add-entry-modal').addClass('hidden');
+  $('.user-dashboard').removeClass('opaque');
 }
 
-//listen for new entry button
-$(function listenForNewEntry() {
-  $('main').on('click', '.add-entry-button', function (event) {
+//listen for entry submit/edit Cancel
+$(function listenForCancelEntry() {
+  $('main').on('click', '#cancel-entry-button', function (event) {
     event.preventDefault();
-    console.log('add entry button clicked');
-    displayEntryModal();
+    hideEntryModal();
   })
 })
+
+//what does location.reload and localStorage.clear() do?
+// function logoutUser() {
+//   $('.main').on('click', 'logout-button', function (event) {
+//     event.preventDefault();
+//     location.reload();
+//     localStorage.clear();
+//   })
+// }
+
 
 //geoLocation
 // button.getLocation("click", function() {

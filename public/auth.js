@@ -59,9 +59,8 @@ function logInUser(userInfo) {
     .then(data => {
       localStorage.setItem('authToken', data.authToken);
       // location.pathname = '/users';
-      $('.user-dashboard').removeClass('hidden');
-      $("#log-in").addClass("hidden");
-      $("#sign-up").addClass("hidden");
+      showDashboard();
+      getResults();
     })
     .catch(error => console.log(error.message));
 }
@@ -86,3 +85,10 @@ $(function swapForms() {
     $("#sign-up").addClass("hidden");
   })
 })
+
+function showDashboard() {
+  $('.user-dashboard').removeClass('hidden');
+  $("#log-in").addClass("hidden");
+  $("#sign-up").addClass("hidden");
+  $('.icon-large').addClass('hidden');
+}

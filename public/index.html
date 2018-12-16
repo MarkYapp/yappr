@@ -12,6 +12,7 @@
 
 <body>
   <img src="/img/icon-above-font.png" class="icon-large" alt="The yapper logo, a camper van">
+
   <h1>Yappr</h1>
   <h3>Travel blogging made easy.</h3>
   <main role="main">
@@ -58,25 +59,34 @@
 
     <!-- Dashboard -->
     <section class="user-dashboard hidden">
+      <button class="logout-button">Log out</button>
+      <img src="/img/icon-left-font.png" class="icon-small" alt="The yapper logo, a camper van">
       <button class="add-entry-button">Add an entry</button>
 
       <!-- add entry modal -->
       <div class="add-entry-modal hidden">
+
         <form class="new-entry-form">
           <h2>Add a blog post</h2>
-
+          <h4 class="edit-header">Update blog id <span id="entry-id"></span></h4>
           <label for="activity">Activity
-            <input type="text" id="activity" name="activity" />
+            <input class="entry-input" type="text" id="activity" name="activity" />
           </label>
+          <br>
           <label for="location">Location
-            <input type="text" id="location" name="location" />
+            <input class="entry-input" type="text" id="location" name="location" />
           </label>
           <br>
-          <label for="notes">Notes
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="4">Notes Notes Notes
+          </textarea>
+          <!-- <label for="notes">Notes
             <input type="text" id="notes" name="notes" />
-          </label>
+          </label> -->
           <br>
+          <button type="button" id="cancel-entry-button" role="button">Cancel</button>
           <button type="button" id="submit-entry-button" role="button">Save</button>
+          <button type="button" id="edit-entry-button" class="hidden" role="button">Edit</button>
         </form>
       </div>
 

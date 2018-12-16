@@ -1,10 +1,18 @@
-/* * {
+* {
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
-} */
+}
+
+body {
+	background-image: url('./img/1923416_507656929395_332_n_507656929395.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100vh;
+	/* padding-top:50px; */
+}
 
 .hidden {
   display: none;
@@ -14,8 +22,12 @@ body {
   width: 25%;
 }
 
+.icon-small {
+  width: 100px;
+}
+
 /* shopping list css */
-button, input[type="text"] {
+button, input {
   padding: 5px;
 }
 
@@ -23,20 +35,7 @@ button:hover {
   cursor: pointer;
 }
 
-.hidden {
-  display: none;
-}
-
-#shopping-list-item {
-  width: 250px;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.shopping-list {
+.entries-results {
   list-style: none;
   padding-left: 0;
 }
@@ -44,13 +43,51 @@ button:hover {
 .entries-results > li {
   margin-bottom: 20px;
   border: 1px solid grey;
+  border-radius: 10px;
+  background-color: #D4D0D2;
+  box-shadow: 5px 5px 2px lightgrey;
   padding: 20px;
 }
 
-.shopping-item {
+.entry-item {
   display: block;
   color: grey;
-  font-style: italic;
-  font-size: 20px;
+
+  font-size: 16px;
   margin-bottom: 15px;
 }
+
+.add-entry-modal {
+  border: 3px solid black;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px grey;
+  padding: 10px;
+  margin: 10px auto 10px auto;
+  position: fixed;
+  top: 25%;
+  background-color: white;
+  width: 75%;
+  left: 50%;
+  margin-left: -37.5%;
+}
+
+/* .entry-input {
+  margin-bottom: 10px;
+}  */
+
+#notes {
+  width: 90%;
+  display: block;
+}
+
+.entry-controls {
+  float: right;
+  padding: 10px;
+  border-radius: 2px;
+  /* background-color: fuchsia; */
+}
+
+.opaque {
+  opacity: .5;
+}
+
