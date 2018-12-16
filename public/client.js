@@ -1,4 +1,8 @@
 
+
+
+
+
 //error handling
 function handleErrors(response) {
   if (!response.ok) {
@@ -53,14 +57,15 @@ $(function listenForNewEntry() {
   })
 })
 
-//functioning get request using fetch
+//functioning get request using fetch////////////////////////////////////
 function getResults() {
   console.log('getResults called');
   fetch('/entries',
     {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       },
       method: "GET",
 
@@ -72,6 +77,8 @@ function getResults() {
       renderResults(responseJson);
     })
 }
+
+
 
 // //GET for current user
 // function getResults() {
@@ -179,7 +186,7 @@ function getOne(entryID) {
     {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: "GET"
     })
@@ -200,7 +207,7 @@ function populateEditFields(entrytoUpdate) {
   $('#entry-id').html(`${entrytoUpdate.id}`)
   $('#activity').val(`${entrytoUpdate.activity}`);
   $('#location').val(`${entrytoUpdate.location}`);
-  $('notes').val(`${entrytoUpdate.notes}`);
+  $('#notes').val(`${entrytoUpdate.notes}`);
 }
 
 //listen for entry edit button

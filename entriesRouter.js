@@ -5,10 +5,13 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
 const { Entry } = require('./models');
+const passport = require('passport');
 
-//GET request to /blog-posts, return all
-router.get('/', (req, res) => {
-  Entry.find()
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+//GET request to /blog-posts, return all////////////////////////////////////////////
+router.get('/', jwtAuth, (req, res) => {
+  Entry.find({ userId: userId })
     .then(entry => {
 
       res.json({

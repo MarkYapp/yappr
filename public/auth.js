@@ -1,3 +1,14 @@
+//page refresh
+$(function checkForAuth() {
+  let authToken = localStorage.getItem('authToken')
+  console.log(authToken);
+  if (authToken) {
+    showDashboard();
+    getResults();
+  }
+})
+
+
 //error handling
 function handleErrors(response) {
   if (!response.ok) {
