@@ -23,7 +23,7 @@ function postNewEntry(newEntry) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       console.log("successfully added new entry");
-      getResults();
+      getEntries();
     }
   });
 }
@@ -33,14 +33,14 @@ $(function listenForEntrySubmit() {
     event.preventDefault();
     console.log("new entry submit clicked");
     let newEntry = {};
-    newEntry.activity = $('#activity').val();
-    newEntry.location = $('#location').val();
-    newEntry.notes = $('#notes').val();
+    newEntry.activity = $('#activity-field').val();
+    newEntry.location = $('#location-field').val();
+    newEntry.notes = $('#notes-field').val();
     console.log(newEntry);
     postNewEntry(newEntry);
-    $('#activity').val('');
-    $('#location').val('');
-    $('#notes').val('');
+    $('#activity-field').val('');
+    $('#location-field').val('');
+    $('#notes-field').val('');
     hideEntryModal();
     $('.user-dashboard').removeClass('opaque');
 
@@ -58,8 +58,7 @@ $(function listenForNewEntry() {
 })
 
 //functioning get request using fetch////////////////////////////////////
-function getResults() {
-  console.log('getResults called');
+function getEntries() {
   fetch('/entries',
     {
       headers: {
@@ -78,27 +77,6 @@ function getResults() {
     })
 }
 
-
-
-// //GET for current user
-// function getResults() {
-//   fetch('/entries',
-//     {
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//       },
-//       method: "GET"
-//     })
-//     .then(response => {
-//       return response.json()
-//     })
-//     .then(responseJson => {
-//       renderResults(responseJson);
-//     })
-// }
-
-
 //add results to DOM
 function renderResults(results) {
   const entries = results.entries
@@ -109,16 +87,16 @@ function renderResults(results) {
 //generate an HTML element representing each entry
 function generateEntryElement(entry, Index) {
   return `
-    <li class="entry-list-element" entry-index="${entry.id}">
-      <span class="entry-item"><h2>Date: ${entry.time}<br>Activity: ${entry.activity} | Location: ${entry.location}</h2><p>${entry.notes}</p></span>
-      <div class="entry-controls">
-        <button class="entry-edit-button">
-            <span class="button-label">edit</span>
-        </button>
-        <button class="entry-delete-button">
-            <span class="button-label">delete</span>
-        </button>
-      </div>
+  <li class="entry-list-element" entry-index="${entry.id}">
+  <div class="entry-controls">
+    <button class="entry-edit-button">
+        <span class="button-label">edit</span>
+    </button>
+    <button class="entry-delete-button">
+        <span class="button-label">delete</span>
+    </button>
+  </div>
+      <span class="entry-item"><h3>${entry.activity} | ${entry.location} | ${entry.time}</h2><p>${entry.notes}</p></span>
     </li>`;
 }
 
@@ -156,7 +134,7 @@ function deleteEntry(entryID) {
       method: "DELETE"
     })
     .then(function () {
-      getResults();
+      getEntries();
     }
     )
     .catch(error => console.log(error.message));
@@ -205,9 +183,9 @@ function populateEditFields(entrytoUpdate) {
   console.log('populating entry fields');
   console.log(entrytoUpdate);
   $('#entry-id').html(`${entrytoUpdate.id}`)
-  $('#activity').val(`${entrytoUpdate.activity}`);
-  $('#location').val(`${entrytoUpdate.location}`);
-  $('#notes').val(`${entrytoUpdate.notes}`);
+  $('#activity-field').val(`${entrytoUpdate.activity}`);
+  $('#location-field').val(`${entrytoUpdate.location}`);
+  $('#notes-field').val(`${entrytoUpdate.notes}`);
 }
 
 //listen for entry edit button
@@ -215,6 +193,7 @@ $(function listenForEditEntry() {
   $('main').on('click', '.entry-edit-button', function (event) {
     event.preventDefault();
     displayEntryModal();
+    $('.edit-header').removeClass('hidden');
     $('#submit-entry-button').addClass('hidden');
     $('#edit-entry-button').removeClass('hidden');
     const entryID = getEntryIndex(event.currentTarget);
@@ -229,17 +208,17 @@ $(function listenForEditSubmit() {
     event.preventDefault();
     console.log('edit entry button clicked');
     let editedEntry = {};
-    editedEntry.activity = $('#activity').val();
-    editedEntry.location = $('#location').val();
-    editedEntry.notes = $('#notes').val();
+    editedEntry.activity = $('#activity-field').val();
+    editedEntry.location = $('#location-field').val();
+    editedEntry.notes = $('#notes-field').val();
     editedEntry.id = $('#entry-id').html();
     console.log(JSON.stringify(editedEntry));
     editEntry(editedEntry);
     hideEntryModal();
-    getResults();
-    $('#activity').val('');
-    $('#location').val('');
-    $('notes').val('');
+    getEntries();
+    $('#activity-field').val('');
+    $('#location-field').val('');
+    $('#notes-field').val('');
   });
 })
 
@@ -260,17 +239,17 @@ $(function listenForCancelEntry() {
   $('main').on('click', '#cancel-entry-button', function (event) {
     event.preventDefault();
     hideEntryModal();
+    hideEntryModal();
   })
 })
 
-//what does location.reload and localStorage.clear() do?
-// function logoutUser() {
-//   $('.main').on('click', 'logout-button', function (event) {
-//     event.preventDefault();
-//     location.reload();
-//     localStorage.clear();
-//   })
-// }
+$(function logoutUser() {
+  $('main').on('click', '.logout-button', function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    location.reload();
+  })
+})
 
 
 //geoLocation

@@ -11,7 +11,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 
 //GET request to /blog-posts, return all////////////////////////////////////////////
 router.get('/', jwtAuth, (req, res) => {
-  Entry.find({ userId: userId })
+  Entry.find()
     .then(entry => {
 
       res.json({

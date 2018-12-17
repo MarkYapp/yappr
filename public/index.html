@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Trackr</title>
+  <title>Yappr</title>
   <meta name="description" content="Automate your travel blogging.">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,96 +11,71 @@
 </head>
 
 <body>
-  <img src="/img/icon-above-font.png" class="icon-large" alt="The yapper logo, a camper van">
-
-  <h1>Yappr</h1>
-  <h3>Travel blogging made easy.</h3>
   <main role="main">
+    <img src="/img/icon-above-font.png" class="icon-large" alt="The yapper logo, a camper van">
 
-    <!-- Sign in form -->
-    <section id="log-in">
-      <form class="signin-form">
-        <h2>Log in</h2>
-
-        <label for="username">Username
-          <input type="text" id="username" name="username" required />
-        </label>
-
-        <label>Password
-          <input type="password" id="password" name="password" required />
-        </label>
-
+    <!-- Log in form -->
+    <form class="login-form">
+      <fieldset>
+        <legend>Log in</legend>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+        <label>Password</label>
+        <input type="password" id="password" name="password" required />
         <button type="submit" id="login-button" role="button">Sign In</button>
-        <p>Demo Login: TestUser | password</p>
-        <p class="new-user homepage-link">New user? Sign up <a href="#" id="signup-link">here</a></p>
-      </form>
-    </section>
+      </fieldset>
+      <p>New user? Sign up <a href="#" id="signup-link">here</a></p>
+      <p>Demo Login:<br>username: testuser | password: password</p>
+    </form>
+
 
     <!-- Sign up form -->
-    <section id="sign-up" class="hidden">
-
-      <form class="signup-form">
-        <h2>Sign up</h2>
-
-        <label for="new-username">Username
-          <input type="text" id="new-username" name="new-username" />
-        </label>
-
-        <label>Password
-          <input type="password" id="new-password" name="new-password" />
-        </label>
-
-        <button type="button" id="user-signup" class="submit" role="button">Sign Up</button>
-        <!-- <p class="have-account">I've got an account</p> -->
-        <p class="new-user homepage-link">Have an account? Log in <a href="#" id="login-link">here</a></p>
-      </form>
+    <form class="signup-form hidden">
+      <fieldset>
+        <legend>Sign up</legend>
+        <label for="new-username">Username</label>
+        <input type="text" id="new-username" name="new-username" />
+        <label>Password</label>
+        <input type="password" id="new-password" name="new-password" />
+        <button type="submit" id="user-signup" class="submit" role="button">Sign Up</button>
+      </fieldset>
+      <p>Have an account? Log in <a href="#" id="login-link">here</a></p>
       <p class="signup-status"></p>
-    </section>
+    </form>
+
 
     <!-- Dashboard -->
     <section class="user-dashboard hidden">
       <button class="logout-button">Log out</button>
       <img src="/img/icon-left-font.png" class="icon-small" alt="The yapper logo, a camper van">
-      <button class="add-entry-button">Add an entry</button>
+      <button class="add-entry-button">New entry</button>
 
       <!-- add entry modal -->
-      <div class="add-entry-modal hidden">
-
-        <form class="new-entry-form">
-          <h2>Add a blog post</h2>
-          <h4 class="edit-header">Update blog id <span id="entry-id"></span></h4>
-          <label for="activity">Activity
-            <input class="entry-input" type="text" id="activity" name="activity" />
-          </label>
-          <br>
-          <label for="location">Location
-            <input class="entry-input" type="text" id="location" name="location" />
-          </label>
-          <br>
+      <form class="add-entry-modal hidden">
+        <fieldset>
+          <legend>Add a blog entry</legend>
+          <!-- <h2>Add a blog post</h2> -->
+          <h4 class="edit-header hidden">Update blog id <span id="entry-id"></span></h4>
+          <label for="activity">Activity</label>
+          <input class="entry-input" type="text" id="activity-field" name="activity" />
+          <label for="location">Location</label>
+          <input class="entry-input" type="text" id="location-field" name="location" />
           <label for="notes">Notes</label>
-          <textarea id="notes" name="notes" rows="4">Notes Notes Notes
-          </textarea>
-          <!-- <label for="notes">Notes
-            <input type="text" id="notes" name="notes" />
-          </label> -->
-          <br>
+          <textarea id="notes-field" name="notes" rows="4"></textarea>
           <button type="button" id="cancel-entry-button" role="button">Cancel</button>
           <button type="button" id="submit-entry-button" role="button">Save</button>
-          <button type="button" id="edit-entry-button" class="hidden" role="button">Edit</button>
-        </form>
-      </div>
+          <button type="button" id="edit-entry-button" class="hidden" role="button">Submit Changes</button>
+        </fieldset>
+      </form>
 
       <!-- entries go here -->
       <ul class="entries-results"></ul>
 
     </section>
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="auth.js"></script>
-    <script type="text/javascript" src="client.js"></script>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="auth.js"></script>
+  <script type="text/javascript" src="client.js"></script>
 </body>
 
 </html>

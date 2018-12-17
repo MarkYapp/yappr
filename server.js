@@ -9,6 +9,8 @@ app.use(morgan('common'));
 require('dotenv').config();
 const passport = require('passport');
 
+const moment = require('moment');
+
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
@@ -64,6 +66,7 @@ let server;
 
 function runServer(databaseUrl, port = PORT) {
   return new Promise((resolve, reject) => {
+    mongoose.set('debug', true);
     mongoose.connect(
       databaseUrl,
       err => {

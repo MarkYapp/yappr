@@ -1,10 +1,8 @@
 //page refresh
 $(function checkForAuth() {
   let authToken = localStorage.getItem('authToken')
-  console.log(authToken);
   if (authToken) {
     showDashboard();
-    getResults();
   }
 })
 
@@ -71,7 +69,7 @@ function logInUser(userInfo) {
       localStorage.setItem('authToken', data.authToken);
       // location.pathname = '/users';
       showDashboard();
-      getResults();
+      getEntries();
     })
     .catch(error => console.log(error.message));
 }
@@ -88,18 +86,21 @@ $(function listenForLogin() {
 
 $(function swapForms() {
   $('main').on('click', '#signup-link', function (event) {
-    $("#log-in").addClass("hidden");
-    $("#sign-up").removeClass("hidden");
+    $(".login-form").addClass("hidden");
+    $(".signup-form").removeClass("hidden");
   })
   $('main').on('click', '#login-link', function (event) {
-    $("#log-in").removeClass("hidden");
-    $("#sign-up").addClass("hidden");
+    $(".login-form").removeClass("hidden");
+    $(".signup-form").addClass("hidden");
   })
 })
 
 function showDashboard() {
-  $('.user-dashboard').removeClass('hidden');
-  $("#log-in").addClass("hidden");
-  $("#sign-up").addClass("hidden");
+  $(".login-form").addClass("hidden");
+  $(".signup-form").addClass("hidden");
   $('.icon-large').addClass('hidden');
+  $('.icon-large').removeClass('icon-large');
+  document.body.style.background = 'none';
+  $('.user-dashboard').removeClass('hidden');
+  getEntries();
 }

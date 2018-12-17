@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 const User = require('./users/models');
 
+const moment = require('moment');
+
 //feedback on mongoose connection
 mongoose.connection.on('connected', function () {
   console.log('Mongoose connected');
@@ -30,7 +32,7 @@ entriesSchema.methods.serialize = function () {
     activity: this.activity,
     location: this.location,
     notes: this.notes,
-    time: this.time
+    time: moment(this.time).format('MMMM Do, YYYY')
     // time2: moment(this.time),
     // time3: moment(this.time).unix()
   }
