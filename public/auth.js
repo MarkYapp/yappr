@@ -67,12 +67,22 @@ function logInUser(userInfo) {
     })
     .then(data => {
       localStorage.setItem('authToken', data.authToken);
-      // location.pathname = '/users';
       showDashboard();
       getEntries();
     })
-    .catch(error => console.log(error.message));
+    .catch(error => {
+      console.log(error.message);
+      $('.invalid-login-modal').removeClass('hidden')
+    });
 }
+
+$(function hideInvalidUserModal() {
+  $('.invalid-modal-close-button').click(function (event) {
+    event.preventDefault();
+    console.log('clicked')
+    $('.invalid-login-modal').addClass('hidden');
+  })
+})
 
 $(function listenForLogin() {
   $('#login-button').click(function (event) {
@@ -101,6 +111,7 @@ function showDashboard() {
   $('.icon-large').addClass('hidden');
   $('.icon-large').removeClass('icon-large');
   document.body.style.background = 'none';
+  document.body.style.background = 'linear-gradient(165deg, rgb(243,238,238) 25%, rgb(170,166,166) 75%';
   $('.user-dashboard').removeClass('hidden');
   getEntries();
 }

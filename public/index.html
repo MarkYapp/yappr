@@ -12,7 +12,8 @@
 
 <body>
   <main role="main">
-    <img src="/img/icon-above-font.png" class="icon-large" alt="The yapper logo, a camper van">
+    <img src="/img/yappr-logo-large.png" class="icon-large" alt="The yapper logo, a mountain">
+
 
     <!-- Log in form -->
     <form class="login-form">
@@ -25,9 +26,8 @@
         <button type="submit" id="login-button" role="button">Sign In</button>
       </fieldset>
       <p>New user? Sign up <a href="#" id="signup-link">here</a></p>
-      <p>Demo Login:<br>username: testuser | password: password</p>
+      <p>Demo Login:<br>username: <b>testuser</b> | password: <b>password</b></p>
     </form>
-
 
     <!-- Sign up form -->
     <form class="signup-form hidden">
@@ -43,18 +43,24 @@
       <p class="signup-status"></p>
     </form>
 
+    <!-- invalid user modal -->
+    <div class="invalid-login-modal hidden">
+      <p>Invalid username or password</p>
+      <button class="invalid-modal-close-button">Close</button>
+    </div>
 
     <!-- Dashboard -->
     <section class="user-dashboard hidden">
       <button class="logout-button">Log out</button>
-      <img src="/img/icon-left-font.png" class="icon-small" alt="The yapper logo, a camper van">
+
+      <img src="/img/yappr-logo-header.png" class="icon-small" alt="The yapper logo, a mountain">
+
       <button class="add-entry-button">New entry</button>
 
       <!-- add entry modal -->
       <form class="add-entry-modal hidden">
         <fieldset>
           <legend>Add a blog entry</legend>
-          <!-- <h2>Add a blog post</h2> -->
           <h4 class="edit-header hidden">Update blog id <span id="entry-id"></span></h4>
           <label for="activity">Activity</label>
           <input class="entry-input" type="text" id="activity-field" name="activity" />

@@ -153,6 +153,7 @@ function editEntry(req) {
     })
     .then(function () {
       console.log('Entry successfully updated');
+      getEntries();
     }
     )
     .catch(error => console.log(error.message));
