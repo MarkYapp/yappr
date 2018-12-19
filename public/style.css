@@ -8,15 +8,19 @@ html, body {
 } 
 
 body {
-  height: 100vh;
+  /* height: 100vh; */
   background-image: url('./img/yappr-background-image.JPG');
-  min-height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 main {
   padding: 50px;
+}
+
+main.dashboard {
+  padding: 0;
 }
 
 .hidden {
@@ -91,6 +95,39 @@ fieldset {
   margin: 0 auto 0;
 }
 
+.add-entry-button {
+  display: block;
+  width: 75%;
+  font-size: 18px;
+  font-weight: 500;
+  /* text-align: center; */
+  color: white;
+  background: #844E4D;
+  border: 0;
+  border-radius: 5px;
+  margin-bottom: 0;
+  transition: opacity 0.4s;
+  margin: 0 auto;
+}
+
+.add-entry-button:hover {
+  background-color: #946860;
+}
+
+.logout-button {
+  margin-top: 15px;
+  margin-right: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  background: #844E4D;
+  border-radius: 3px;
+}
+
+.logout-button:hover {
+  background-color: #946860;
+}
+
 input[type="text"], input[type="password"], button[type="submit"] {
   display: block;
   width: 100%;
@@ -101,7 +138,7 @@ input[type="text"], input[type="password"], button[type="submit"] {
   border: 2px solid #e7e7e7;
   border-radius: 3px;
   background: #fcfcfc;
-  margin: 10px auto 20px;
+  margin: 5px auto 20px;
   transition: opacity 0.4s;
 }
 
@@ -172,7 +209,7 @@ button[type="submit"]:focus {
   margin-bottom: 16px;
   border: 1px solid grey;
   border-radius: 10px;
-  background-color: #D4D0D2;
+  background-color: rgb(228, 226, 227);
   box-shadow: 5px 5px 2px lightgrey;
   padding: 0 20px;
 }
@@ -212,5 +249,5 @@ button[type="submit"]:focus {
 }
 
 .opaque {
-  opacity: .5;
+  opacity: .3;
 }

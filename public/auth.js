@@ -111,7 +111,8 @@ function showDashboard() {
   $('.icon-large').addClass('hidden');
   $('.icon-large').removeClass('icon-large');
   document.body.style.background = 'none';
-  document.body.style.background = 'linear-gradient(165deg, rgb(243,238,238) 25%, rgb(170,166,166) 75%';
+  document.body.style.background = 'repeating-linear-gradient(180deg, rgb(243,238,238), rgb(170,166,166) 250%';
   $('.user-dashboard').removeClass('hidden');
+  $('main').addClass('dashboard');
   getEntries();
 }

@@ -38,10 +38,8 @@ $(function listenForEntrySubmit() {
     newEntry.notes = $('#notes-field').val();
     console.log(newEntry);
     postNewEntry(newEntry);
-    $('#activity-field').val('');
-    $('#location-field').val('');
-    $('#notes-field').val('');
     hideEntryModal();
+    clearEntryFields();
     $('.user-dashboard').removeClass('opaque');
 
   })
@@ -53,6 +51,7 @@ $(function listenForNewEntry() {
     event.preventDefault();
     console.log('add entry button clicked');
     displayEntryModal();
+    $('#submit-entry-button').removeClass('hidden');
     $('#edit-entry-button').addClass('hidden');
   })
 })
@@ -217,11 +216,16 @@ $(function listenForEditSubmit() {
     editEntry(editedEntry);
     hideEntryModal();
     getEntries();
-    $('#activity-field').val('');
-    $('#location-field').val('');
-    $('#notes-field').val('');
+    clearEntryFields()
   });
 })
+
+function clearEntryFields() {
+  $('#activity-field').val('');
+  $('#location-field').val('');
+  $('#notes-field').val('');
+  $('.edit-header').addClass('hidden');
+}
 
 
 
@@ -240,7 +244,7 @@ $(function listenForCancelEntry() {
   $('main').on('click', '#cancel-entry-button', function (event) {
     event.preventDefault();
     hideEntryModal();
-    hideEntryModal();
+    clearEntryFields();
   })
 })
 
