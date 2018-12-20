@@ -110,9 +110,9 @@ function showDashboard() {
   $(".signup-form").addClass("hidden");
   $('.icon-large').addClass('hidden');
   $('.icon-large').removeClass('icon-large');
-  document.body.style.background = 'none';
-  document.body.style.background = 'repeating-linear-gradient(180deg, rgb(243,238,238), rgb(170,166,166) 250%';
   $('.user-dashboard').removeClass('hidden');
   $('main').addClass('dashboard');
+  $('body').addClass('dashboard');
+
   getEntries();
 }

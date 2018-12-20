@@ -7,38 +7,69 @@ const jsonParser = bodyParser.json();
 const { Entry } = require('./models');
 const passport = require('passport');
 
+var jwt = require('jwt-simple');
+
+const { JWT_SECRET } = require('./config');
+
+const { User } = require('./users/models')
+
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 //GET request to /blog-posts, return all////////////////////////////////////////////
 router.get('/', jwtAuth, (req, res) => {
-  Entry.find()
-    .then(entry => {
-
-      res.json({
-        entries: entry.map(entry => entry.serialize())
-      });
+  let username = getUsernameFromJwt(req);
+  console.log(`username is: ${username}`);
+  User.findOne({ 'username': username })
+    .then(user => {
+      console.log(`userId is: ${user.id}`)
+      Entry.find({ 'userId': user.id })
+        .populate('user')
+        .then(entry => {
+          console.log(entry);
+          res.json({
+            entries: entry.map(entry => entry.serialize())
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).json({ message: "Internal server error" });
+        });
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ message: "Internal server error" });
-    });
 })
+
+//get username from jwt
+function getUsernameFromJwt(req) {
+  let authHeaderString = JSON.stringify(req.headers.authorization);
+  let jwtString = authHeaderString.split(' ')[1];
+  console.log(jwtString);
+  let userPayload = jwt.decode(jwtString, JWT_SECRET, "HS256");
+  let username = userPayload.user.username;
+  console.log(username);
+  return username;
+}
 
 //GET request to /blog-posts, find by id
-router.get('/:id', (req, res) => {
-  Entry.findById(req.params.id)
-    .then(entry => {
-      res.json(entry.serialize())
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ message: "Internal server error" });
+router.get('/:id', jwtAuth, (req, res) => {
+  let username = getUsernameFromJwt(req);
+  User.findOne({ 'username': username })
+    .then(username => {
+      Entry.find({ 'userId': req.params.id })
+        .populate('user') //delete?
+        .then(entry => {
+          console.log(entry);
+          res.json(entry)
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).json({ message: "Internal server error" });
+        });
     });
 })
 
-//POST request
-router.post("/", jsonParser, (req, res) => {
+//POST entry
+router.post("/", jwtAuth, jsonParser, (req, res) => {
   console.log("POST request received")
+  console.log(req.body);
   const requiredFields = ["activity", "location"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -49,22 +80,27 @@ router.post("/", jsonParser, (req, res) => {
     }
   }
 
+  let username = getUsernameFromJwt(req);
+  User.findOne({ 'username': username })
+    .then(username => {
+      Entry.create({
 
-  Entry.create({
-    // user: req.body.user,
-    activity: req.body.activity,
-    location: req.body.location,
-    notes: req.body.notes
-  })
-    .then(entry => res.status(201).json(entry))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ message: "Internal server error" });
+        username: req.body.username,
+        activity: req.body.activity,
+        location: req.body.location,
+        notes: req.body.notes,
+        userId: username.id
+      })
+        .then(entry => res.status(201).json(entry))
+        .catch(err => {
+          console.error(err);
+          res.status(500).json({ message: "Internal server error" });
+        });
     });
-});
+})
 
 //PUT request
-router.put("/:id", jsonParser, (req, res) => {
+router.put("/:id", jwtAuth, jsonParser, (req, res) => {
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message =
@@ -93,7 +129,7 @@ router.put("/:id", jsonParser, (req, res) => {
     .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", jwtAuth, (req, res) => {
   Entry.findByIdAndRemove(req.params.id)
     .then(post => res.status(204).end())
     .catch(err => res.status(500).json({ message: "Internal server error" }));

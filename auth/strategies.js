@@ -10,7 +10,7 @@ const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy((username, password, callback) => {
   let user;
-  console.log(username, password, callback);
+  // console.log(username, password, callback);
   User.findOne({ username: username })
     .then(_user => {
       user = _user;
@@ -20,6 +20,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
         return Promise.reject({
           reason: 'LoginError',
           message: 'Incorrect username or password'
+
         });
       }
       return user.validatePassword(password);
@@ -50,7 +51,7 @@ const jwtStrategy = new JwtStrategy(
     algorithms: ['HS256']
   },
   (payload, done) => {
-    console.log(payload);
+    // console.log(payload);
     done(null, payload.user);
   }
 );

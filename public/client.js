@@ -15,18 +15,38 @@ function handleErrors(response) {
 
 //POST a blog entry using ajax
 function postNewEntry(newEntry) {
-  jQuery.ajax({
-    url: "/entries",
-    type: "POST",
-    data: JSON.stringify(newEntry),
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function (data) {
+  fetch('/entries',
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+
+      },
+      method: "POST",
+      body: JSON.stringify(newEntry)
+    })
+    .then(response => {
       console.log("successfully added new entry");
       getEntries();
-    }
-  });
+      return response.json()
+    })
+
+  // jQuery.ajax({
+  //   url: "/entries",
+  //   type: "POST",
+  //   data: JSON.stringify(newEntry),
+  //   dataType: "json",
+  //   contentType: "application/json; charset=utf-8",
+  //   success: function (data) {
+  //     console.log("successfully added new entry");
+  //     getEntries();
+  //   }
+  // });
 }
+
+
+
 
 $(function listenForEntrySubmit() {
   $('main').on('click', '#submit-entry-button', function (event) {
@@ -64,6 +84,7 @@ function getEntries() {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+
       },
       method: "GET",
 
@@ -84,7 +105,7 @@ function renderResults(results) {
 }
 
 //generate an HTML element representing each entry
-function generateEntryElement(entry, Index) {
+function generateEntryElement(entry) {
   return `
   <li class="entry-list-element" entry-index="${entry.id}">
   <div class="entry-controls">
@@ -95,17 +116,30 @@ function generateEntryElement(entry, Index) {
         <span class="button-label">delete</span>
     </button>
   </div>
-      <span class="entry-item"><h3>${entry.activity} | ${entry.location} | ${entry.time}</h2><p>${entry.notes}</p></span>
+      <span class="entry-item"><h3>${entry.activity} | ${entry.location} | ${entry.userDate}</h2><p>${entry.notes}</p></span>
     </li>`;
 }
 
 //generate one long string containing all entries
 function generateEntryElementString(entriesList) {
-
-  const entries = entriesList.map((entry, index) => generateEntryElement(entry, index));
-
+  const entries = entriesList.map(entry => generateEntryElement(entry));
   return entries.join("");
 }
+
+
+// 1st sort
+// function compare(a, b) {
+//   const genreA = a.timestamp;
+//   const genreB = b.timestamp;
+
+//   let comparison = 0;
+//   if (genreA > genreB) {
+//     comparison = 1;
+//   } else if (genreA < genreB) {
+//     comparison = -1;
+//   }
+//   return comparison;
+// }
 
 function getEntryIndex(entry) {
   const entryID = $(entry).closest('.entry-list-element').attr('entry-index');
@@ -128,7 +162,8 @@ function deleteEntry(entryID) {
     {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       },
       method: "DELETE"
     })
@@ -145,7 +180,8 @@ function editEntry(req) {
     {
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       },
       method: "PUT",
       body: JSON.stringify(req)
@@ -165,6 +201,7 @@ function getOne(entryID) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       },
       method: "GET"
     })

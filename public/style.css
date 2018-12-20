@@ -15,6 +15,10 @@ body {
   background-attachment: fixed;
 }
 
+body.dashboard {
+  background-image: repeating-linear-gradient(180deg, rgb(243,238,238), rgb(170,166,166) 150%);
+}
+
 main {
   padding: 50px;
 }

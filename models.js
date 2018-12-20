@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const User = require('./users/models');
+const { User } = require('./users/models');
 
 const moment = require('moment');
 
@@ -18,25 +18,29 @@ mongoose.connection.on('disconnected', function () {
 });
 
 const entriesSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  // userId: String,
   activity: { type: String, required: true },
   location: { type: String, required: true },
   notes: String,
-  time: { type: Date, default: Date.now() }
+  date: { type: Date, default: Date.now() }
 })
 
 entriesSchema.methods.serialize = function () {
   return {
     id: this._id,
-    user: this.user,
+    userId: this.userId,
     activity: this.activity,
     location: this.location,
     notes: this.notes,
-    time: moment(this.time).format('MMMM Do, YYYY')
-    // time2: moment(this.time),
-    // time3: moment(this.time).unix()
+    userDate: moment(this.date).format('lll')
   }
 }
+
+// entriesSchema.pre('find', function (next) {
+//   this.populate('user');
+//   next();
+// });
 
 const Entry = mongoose.model("Entry", entriesSchema);
 
