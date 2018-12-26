@@ -64,17 +64,17 @@
     <!-- add entry modal -->
     <form class="add-entry-modal hidden">
       <fieldset>
-        <legend>Add a blog entry</legend>
-        <h4 class="edit-header hidden">Update blog id <span id="entry-id"></span></h4>
-        <label for="activity">Activity</label>
+        <legend><span class="add-modal-title">Add a blog entry</span><span class="edit-modal-title hidden"></span><span
+            id="modal-entry-id" class="hidden"></span></legend>
+        <label for=" activity">Activity</label>
         <input class="entry-input" type="text" id="activity-field" name="activity" />
         <label for="location">Location</label>
         <input class="entry-input" type="text" id="location-field" name="location" />
         <label for="notes">Notes</label>
         <textarea id="notes-field" name="notes" rows="4"></textarea>
-        <button type="button" id="cancel-entry-button" role="button">Cancel</button>
-        <button type="button" id="submit-entry-button" role="button">Save</button>
-        <button type="button" id="edit-entry-button" class="hidden" role="button">Submit Changes</button>
+        <button type="button" id="cancel-entry-button" class="entry-button" role="button">Cancel</button>
+        <button type="button" id="submit-entry-button" class="entry-button" role="button">Save</button>
+        <button type="button" id="edit-entry-button" class="entry-button hidden" role="button">Submit Changes</button>
       </fieldset>
     </form>
 

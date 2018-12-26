@@ -18,7 +18,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 //GET request to /blog-posts, return all////////////////////////////////////////////
 router.get('/', jwtAuth, (req, res) => {
   let username = getUsernameFromJwt(req);
-  console.log(`username is: ${username}`);
+  // console.log(`username is: ${username}`);
   User.findOne({ 'username': username })
     .then(user => {
       console.log(`userId is: ${user.id}`)
@@ -48,23 +48,23 @@ function getUsernameFromJwt(req) {
   return username;
 }
 
-//GET request to /blog-posts, find by id
+//GET request to /blog-posts, find by id (don't need username)
 router.get('/:id', jwtAuth, (req, res) => {
-  let username = getUsernameFromJwt(req);
-  User.findOne({ 'username': username })
-    .then(username => {
-      Entry.find({ 'userId': req.params.id })
-        .populate('user') //delete?
-        .then(entry => {
-          console.log(entry);
-          res.json(entry)
-        })
-        .catch(err => {
-          console.error(err);
-          res.status(500).json({ message: "Internal server error" });
-        });
+  // let username = getUsernameFromJwt(req);
+  // User.findOne({ 'username': username })
+  //   .then(username => {
+  Entry.findById(req.params.id)
+    .populate('user') //delete?
+    .then(entry => {
+      console.log(entry);
+      res.json(entry)
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
     });
-})
+});
+// })
 
 //POST entry
 router.post("/", jwtAuth, jsonParser, (req, res) => {
@@ -101,6 +101,7 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
 
 //PUT request
 router.put("/:id", jwtAuth, jsonParser, (req, res) => {
+  console.log(req.body);
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message =

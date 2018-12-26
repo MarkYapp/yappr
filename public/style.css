@@ -226,6 +226,22 @@ button[type="submit"]:focus {
   margin-bottom: 15px;
 }
 
+.entry-button {
+  /* margin-top: 15px;
+  margin-right: 15px; */
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+  background: #844E4D;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+.edit-modal-title, .add-modal-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
 /* add and edit entry modals */
 .add-entry-modal {
   border: 3px solid black;
@@ -239,6 +255,10 @@ button[type="submit"]:focus {
   width: 75%;
   left: 50%;
   margin-left: -37.5%;
+}
+
+.add-entry-modal legend {
+  text-align: center;
 }
 
 #notes-field {

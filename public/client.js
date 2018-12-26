@@ -27,7 +27,6 @@ function postNewEntry(newEntry) {
       body: JSON.stringify(newEntry)
     })
     .then(response => {
-      console.log("successfully added new entry");
       getEntries();
       return response.json()
     })
@@ -51,12 +50,10 @@ function postNewEntry(newEntry) {
 $(function listenForEntrySubmit() {
   $('main').on('click', '#submit-entry-button', function (event) {
     event.preventDefault();
-    console.log("new entry submit clicked");
     let newEntry = {};
     newEntry.activity = $('#activity-field').val();
     newEntry.location = $('#location-field').val();
     newEntry.notes = $('#notes-field').val();
-    console.log(newEntry);
     postNewEntry(newEntry);
     hideEntryModal();
     clearEntryFields();
@@ -69,7 +66,6 @@ $(function listenForEntrySubmit() {
 $(function listenForNewEntry() {
   $('main').on('click', '.add-entry-button', function (event) {
     event.preventDefault();
-    console.log('add entry button clicked');
     displayEntryModal();
     $('#submit-entry-button').removeClass('hidden');
     $('#edit-entry-button').addClass('hidden');
@@ -109,12 +105,8 @@ function generateEntryElement(entry) {
   return `
   <li class="entry-list-element" entry-index="${entry.id}">
   <div class="entry-controls">
-    <button class="entry-edit-button">
-        <span class="button-label">edit</span>
-    </button>
-    <button class="entry-delete-button">
-        <span class="button-label">delete</span>
-    </button>
+    <button class="entry-edit-button entry-button">edit</button>
+    <button class="entry-delete-button entry-button">delete</button>
   </div>
       <span class="entry-item"><h3>${entry.activity} | ${entry.location} | ${entry.userDate}</h2><p>${entry.notes}</p></span>
     </li>`;
@@ -187,7 +179,7 @@ function editEntry(req) {
       body: JSON.stringify(req)
     })
     .then(function () {
-      console.log('Entry successfully updated');
+      //add error handling
       getEntries();
     }
     )
@@ -217,9 +209,8 @@ function getOne(entryID) {
 
 //auto-fill fields to be edited
 function populateEditFields(entrytoUpdate) {
-  console.log('populating entry fields');
-  console.log(entrytoUpdate);
-  $('#entry-id').html(`${entrytoUpdate.id}`)
+  $('.edit-modal-title').text(`Update blog entry`)
+  $('#modal-entry-id').text(`${entrytoUpdate._id}`);
   $('#activity-field').val(`${entrytoUpdate.activity}`);
   $('#location-field').val(`${entrytoUpdate.location}`);
   $('#notes-field').val(`${entrytoUpdate.notes}`);
@@ -230,11 +221,11 @@ $(function listenForEditEntry() {
   $('main').on('click', '.entry-edit-button', function (event) {
     event.preventDefault();
     displayEntryModal();
-    $('.edit-header').removeClass('hidden');
+    $('.add-modal-title').addClass('hidden');
+    $('.edit-modal-title').removeClass('hidden');
     $('#submit-entry-button').addClass('hidden');
     $('#edit-entry-button').removeClass('hidden');
     const entryID = getEntryIndex(event.currentTarget);
-    console.log(entryID);
     getOne(entryID);
   })
 })
@@ -243,13 +234,11 @@ $(function listenForEditEntry() {
 $(function listenForEditSubmit() {
   $('main').on('click', '#edit-entry-button', function (event) {
     event.preventDefault();
-    console.log('edit entry button clicked');
     let editedEntry = {};
     editedEntry.activity = $('#activity-field').val();
     editedEntry.location = $('#location-field').val();
     editedEntry.notes = $('#notes-field').val();
-    editedEntry.id = $('#entry-id').html();
-    console.log(JSON.stringify(editedEntry));
+    editedEntry.id = $('#modal-entry-id').text(); ///asdfasdfasdfasdfa
     editEntry(editedEntry);
     hideEntryModal();
     getEntries();
@@ -261,7 +250,9 @@ function clearEntryFields() {
   $('#activity-field').val('');
   $('#location-field').val('');
   $('#notes-field').val('');
-  $('.edit-header').addClass('hidden');
+  $('.edit-modal-title').addClass('hidden');
+  $('.add-modal-title').removeClass('hidden');
+
 }
 
 
@@ -282,6 +273,8 @@ $(function listenForCancelEntry() {
     event.preventDefault();
     hideEntryModal();
     clearEntryFields();
+    $('edit-modal-title').addClass('hidden');
+
   })
 })
 
