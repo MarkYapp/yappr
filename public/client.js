@@ -1,8 +1,4 @@
 
-
-
-
-
 //error handling
 function handleErrors(response) {
   if (!response.ok) {
@@ -30,18 +26,6 @@ function postNewEntry(newEntry) {
       getEntries();
       return response.json()
     })
-
-  // jQuery.ajax({
-  //   url: "/entries",
-  //   type: "POST",
-  //   data: JSON.stringify(newEntry),
-  //   dataType: "json",
-  //   contentType: "application/json; charset=utf-8",
-  //   success: function (data) {
-  //     console.log("successfully added new entry");
-  //     getEntries();
-  //   }
-  // });
 }
 
 
@@ -117,21 +101,6 @@ function generateEntryElementString(entriesList) {
   const entries = entriesList.map(entry => generateEntryElement(entry));
   return entries.join("");
 }
-
-
-// 1st sort
-// function compare(a, b) {
-//   const genreA = a.timestamp;
-//   const genreB = b.timestamp;
-
-//   let comparison = 0;
-//   if (genreA > genreB) {
-//     comparison = 1;
-//   } else if (genreA < genreB) {
-//     comparison = -1;
-//   }
-//   return comparison;
-// }
 
 function getEntryIndex(entry) {
   const entryID = $(entry).closest('.entry-list-element').attr('entry-index');
@@ -252,10 +221,7 @@ function clearEntryFields() {
   $('#notes-field').val('');
   $('.edit-modal-title').addClass('hidden');
   $('.add-modal-title').removeClass('hidden');
-
 }
-
-
 
 function displayEntryModal() {
   $('.add-entry-modal').removeClass('hidden');
@@ -285,76 +251,3 @@ $(function logoutUser() {
     location.reload();
   })
 })
-
-
-//geoLocation
-// button.getLocation("click", function() {
-//   console.log("button clicked")
-//   navigator.geolocation.getCurrentPosition(showPosition);
-
-//   }
-// )
-
-// function showPosition(position) {
-//   console.log(position);
-//   x = document.getElementById("results");
-//   x.innerHTML = "Latitude: " + position.coords.latitude + 
-//     "<br>Longitude: " + position.coords.longitude;
-// }
-
-//log date and time
-// function requestLogger(req, res, next) {
-//   const now = new Date();
-//   console.log(
-//     `${now.toLocaleDateString()} ${now.toLocaleTimeString()} ${req.method} ${req.url}`);
-//   next();
-// }
-
-
-// var mock_entries = {
-//   "entries": [
-//     {
-//       "id": "1111111",
-//       "place": "New York",
-//       "eatLocation": "A really cool diner",
-//       "sleepLocation": "A friend's house",
-//       "publishDate": 1470016976609
-//     },
-//     {
-//       "id": "2222222",
-//       "place": "Steamboat Springs",
-//       "eatLocation": "Creekside Cafe",
-//       "sleepLocation": "Camped halfway up a dirt road outside of town",
-//       "publishDate": 1470016976609
-//     },
-//     {
-//       "place": "Guadalajara",
-//       "eatLocation": "On the beach",
-//       "sleepLocation": "At a hostel",
-//       "publishDate": 1470016976609
-//     },
-//   ]
-// };
-
-// function getRecentStatusUpdates(callbackFn) {
-//   setTimeout(function () { callbackFn(mock_entries) }, 100);
-// }
-
-// // this function stays the same when we connect
-// // to real API later
-// function displayStatusUpdates(data) {
-//   for (index in data.entries) {
-//     $('body').append(
-//       '<p>Place: ' + data.entries[index].place + '</p><p>Where we ate: ' + data.entries[index].eatLocation + '</p>');
-//   }
-// }
-
-// // this function can stay the same even when we
-// // are connecting to real API
-// function getAndDisplayStatusUpdates() {
-//   getRecentStatusUpdates(displayStatusUpdates);
-// }
-
-// $(function () {
-//   getAndDisplayStatusUpdates();
-// })

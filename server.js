@@ -9,20 +9,13 @@ app.use(morgan('common'));
 require('dotenv').config();
 const passport = require('passport');
 
-const moment = require('moment');
-
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 const mongoose = require("mongoose");
-// Mongoose internally uses a promise-like object,
-// but its better to make Mongoose use built in es6 promises
 mongoose.Promise = global.Promise;
 
-// config.js is where we control constants for entire
-// app like PORT and DATABASE_URL
 const { PORT, DATABASE_URL } = require("./config");
-// console.log(DATABASE_URL);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -45,15 +38,6 @@ passport.use(jwtStrategy);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'pandoras box'
-  });
-});
-
 const entriesRouter = require('./entriesRouter');
 app.use('/entries', entriesRouter);
 
@@ -61,7 +45,6 @@ app.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
 });
 
-// this function connects to our database, then starts the server
 let server;
 
 function runServer(databaseUrl, port = PORT) {

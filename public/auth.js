@@ -71,15 +71,15 @@ function logInUser(userInfo) {
       getEntries();
     })
     .catch(error => {
-      console.log(error.message);
-      $('.invalid-login-modal').removeClass('hidden')
+      $('.invalid-login-modal').removeClass('hidden');
+      $('#username').val('');
+      $('#password').val('');
     });
 }
 
 $(function hideInvalidUserModal() {
   $('.invalid-modal-close-button').click(function (event) {
     event.preventDefault();
-    console.log('clicked')
     $('.invalid-login-modal').addClass('hidden');
   })
 })

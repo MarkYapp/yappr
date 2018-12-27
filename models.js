@@ -19,7 +19,6 @@ mongoose.connection.on('disconnected', function () {
 
 const entriesSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  // userId: String,
   activity: { type: String, required: true },
   location: { type: String, required: true },
   notes: String,
@@ -36,11 +35,6 @@ entriesSchema.methods.serialize = function () {
     userDate: moment(this.date).format('lll')
   }
 }
-
-// entriesSchema.pre('find', function (next) {
-//   this.populate('user');
-//   next();
-// });
 
 const Entry = mongoose.model("Entry", entriesSchema);
 
