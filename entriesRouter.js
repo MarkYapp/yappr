@@ -21,7 +21,6 @@ router.get('/', jwtAuth, (req, res) => {
   User.findOne({ 'username': username })
     .then(user => {
       Entry.find({ 'userId': user.id })
-        .populate('user')
         .then(entry => {
           res.json({
             entries: entry.map(entry => entry.serialize())
@@ -41,10 +40,9 @@ function getUsernameFromJwt(req) {
   return username;
 }
 
-//GET request to /blog-posts, find by id (don't need username)
+//GET request to /blog-posts, find by id
 router.get('/:id', jwtAuth, (req, res) => {
   Entry.findById(req.params.id)
-    // .populate('user') 
     .then(entry => {
       res.json(entry)
     })
@@ -59,16 +57,14 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
-      console.error(message);
       return res.status(400).send(message);
-    }
-  }
+    };
+  };
 
   let username = getUsernameFromJwt(req);
   User.findOne({ 'username': username })
     .then(username => {
       Entry.create({
-
         username: req.body.username,
         activity: req.body.activity,
         location: req.body.location,
@@ -77,7 +73,7 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
       })
         .then(entry => res.status(201).json(entry))
         .catch(err => {
-          console.error(err);
+          // console.error(err);
           res.status(500).json({ message: "Internal server error" });
         });
     });

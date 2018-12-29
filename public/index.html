@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/png" href="/img/icon.png" />
 </head>
 
 <body>
@@ -67,9 +68,9 @@
         <legend><span class="add-modal-title">Add a blog entry</span><span class="edit-modal-title hidden"></span><span
             id="modal-entry-id" class="hidden"></span></legend>
         <label for=" activity">Activity</label>
-        <input class="entry-input" type="text" id="activity-field" name="activity" />
+        <input class="entry-input" type="text" id="activity-field" name="activity" required />
         <label for="location">Location</label>
-        <input class="entry-input" type="text" id="location-field" name="location" />
+        <input class="entry-input" type="text" id="location-field" name="location" required />
         <label for="notes">Notes</label>
         <textarea id="notes-field" name="notes" rows="4"></textarea>
         <button type="button" id="cancel-entry-button" class="entry-button" role="button">Cancel</button>

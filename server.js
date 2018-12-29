@@ -1,9 +1,9 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 app.use(express.static('public'));
 
-const morgan = require('morgan');
 app.use(morgan('common'));
 
 require('dotenv').config();
@@ -45,6 +45,24 @@ app.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
 });
 
+function logErrors(err, req, res, next) {
+  console.error(err);
+  return res.status(500).json({ error: 'Something went wrong' })
+}
+
+app.use(logErrors);
+
+//feedback on mongoose connection
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose connected');
+});
+mongoose.connection.on('error', function (err) {
+  console.log('Mongoose connection error: ' + err);
+});
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose disconnected');
+});
+
 let server;
 
 function runServer(databaseUrl, port = PORT) {
@@ -70,8 +88,6 @@ function runServer(databaseUrl, port = PORT) {
   });
 }
 
-// this function closes the server, and returns a promise. we'll
-// use it in our integration tests later.
 function closeServer() {
   return mongoose.disconnect().then(() => {
     return new Promise((resolve, reject) => {
@@ -86,10 +102,7 @@ function closeServer() {
   });
 }
 
-// if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
 if (require.main === module) {
-  // console.log(DATABASE_URL);
   runServer(DATABASE_URL).catch(err => console.error(err));
 }
 

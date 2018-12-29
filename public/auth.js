@@ -6,8 +6,6 @@ $(function checkForAuth() {
   }
 })
 
-
-//error handling
 function handleErrors(response) {
   if (!response.ok) {
     throw Error(response);
@@ -15,7 +13,6 @@ function handleErrors(response) {
   return response;
 }
 
-//POST new user
 function createNewUser(newUserInfo) {
   fetch('/api/users',
     {
@@ -27,6 +24,7 @@ function createNewUser(newUserInfo) {
       body: JSON.stringify(newUserInfo)
     })
     .then(response => {
+      $('.signup-status').text("Signup successful. Please log in.")
       return response.json()
     })
     // .then(handleErrors)
@@ -34,7 +32,6 @@ function createNewUser(newUserInfo) {
       if (!response.ok) {
         $('.signup-status').text(response.message);
       }
-      // $('.signup-status').text("Signup successful. Please log in.")
     })
 }
 
@@ -47,10 +44,9 @@ $(function listenForSignup() {
     createNewUser(newUserInfo);
     $('#new-username').val('');
     $('#new-password').val('');
-  })
+  });
 })
 
-//POST user login
 function logInUser(userInfo) {
   fetch('/api/auth/login',
     {
@@ -81,7 +77,7 @@ $(function hideInvalidUserModal() {
   $('.invalid-modal-close-button').click(function (event) {
     event.preventDefault();
     $('.invalid-login-modal').addClass('hidden');
-  })
+  });
 })
 
 $(function listenForLogin() {
@@ -91,7 +87,7 @@ $(function listenForLogin() {
     userInfo.username = $('#username').val();
     userInfo.password = $('#password').val();
     logInUser(userInfo);
-  })
+  });
 })
 
 $(function swapForms() {
@@ -102,7 +98,7 @@ $(function swapForms() {
   $('main').on('click', '#login-link', function (event) {
     $(".login-form").removeClass("hidden");
     $(".signup-form").addClass("hidden");
-  })
+  });
 })
 
 function showDashboard() {
@@ -113,6 +109,5 @@ function showDashboard() {
   $('.user-dashboard').removeClass('hidden');
   $('main').addClass('dashboard');
   $('body').addClass('dashboard');
-
   getEntries();
 }

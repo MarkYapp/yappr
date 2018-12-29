@@ -16,6 +16,8 @@ Yappr is a blogging app designed to make recording your travel activities easier
 - Mongoose
 - Jwt
 - Passport
+- Morgan
+- Moment.js
 - Heroku
 - Travis CI
 - Chai
