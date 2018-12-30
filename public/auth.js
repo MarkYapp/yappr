@@ -29,7 +29,7 @@ function createNewUser(newUserInfo) {
 }
 
 $(function listenForSignup() {
-  $('#user-signup').click(function (event) {
+  $('form[name=signup-user]').on('submit', function (event) {
     event.preventDefault();
     let newUserInfo = {};
     newUserInfo.username = $('#new-username').val();
@@ -73,10 +73,10 @@ $(function hideInvalidUserModal() {
 })
 
 $(function listenForLogin() {
-  $('#login-button').click(function (event) {
+  $('form[name=login-user]').on('submit', function (event) {
     event.preventDefault();
     let userInfo = {};
-    userInfo.username = $('#username').val().toLowerCase();
+    userInfo.username = $('#username').val();
     userInfo.password = $('#password').val();
     logInUser(userInfo);
   });
@@ -84,8 +84,9 @@ $(function listenForLogin() {
 
 $(function swapForms() {
   $('main').on('click', '#signup-link', function (event) {
-    $(".login-form").addClass("hidden");
-    $(".signup-form").removeClass("hidden");
+    $('.login-form').addClass('hidden');
+    // $('.signup-form');
+    $('.signup-form').prop('hidden', false);
   })
   $('main').on('click', '#login-link', function (event) {
     $(".login-form").removeClass("hidden");
@@ -96,9 +97,8 @@ $(function swapForms() {
 function showDashboard() {
   $(".login-form").addClass("hidden");
   $(".signup-form").addClass("hidden");
-  $('.icon-large').addClass('hidden');
-  $('.icon-large').removeClass('icon-large');
-  $('.user-dashboard').removeClass('hidden');
+  $('.icon-large').addClass('hidden').removeClass('icon-large');
+  $('.user-dashboard').prop('hidden', false);
   $('main').addClass('dashboard');
   $('body').addClass('dashboard');
   getEntries();

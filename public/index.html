@@ -12,18 +12,17 @@
 </head>
 
 <body>
-  <main role="main">
+  <main role="main" aria-live="polite">
     <img src="/img/yappr-logo-large.png" class="icon-large" alt="The yapper logo, a mountain">
 
-
     <!-- Log in form -->
-    <form class="login-form">
+    <form class="login-form" name="login-user" action="#">
       <fieldset>
         <legend>Log in</legend>
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required />
-        <label>Password</label>
-        <input type="password" id="password" name="password" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="username" required />
         <button type="submit" id="login-button" role="button">Sign In</button>
       </fieldset>
       <p>New user? Sign up <a href="#" id="signup-link">here</a></p>
@@ -31,13 +30,13 @@
     </form>
 
     <!-- Sign up form -->
-    <form class="signup-form hidden">
+    <form class="signup-form" name="signup-user" action="#" aria-live="assertive" hidden>
       <fieldset>
         <legend>Sign up</legend>
         <label for="new-username">Username</label>
-        <input type="text" id="new-username" name="new-username" />
-        <label>Password</label>
-        <input type="password" id="new-password" name="new-password" />
+        <input type="text" id="new-username" name="new-username" required />
+        <label for="new-password">Password</label>
+        <input type="password" id="new-password" name="new-password" required />
         <button type="submit" id="user-signup" class="submit" role="button">Sign Up</button>
       </fieldset>
       <p>Have an account? Log in <a href="#" id="login-link">here</a></p>
@@ -51,7 +50,7 @@
     </div>
 
     <!-- Dashboard -->
-    <section class="user-dashboard hidden">
+    <section class="user-dashboard" aria-live="polite" hidden>
       <img src="/img/yappr-logo-header.png" class="icon-small" alt="The yapper logo, a mountain">
 
       <button class="logout-button">Log out</button>
@@ -63,7 +62,7 @@
     </section>
 
     <!-- add entry modal -->
-    <form class="add-entry-modal hidden">
+    <form class="add-entry-modal" aria-live="polite" hidden>
       <fieldset>
         <legend><span class="add-modal-title">Add a blog entry</span><span class="edit-modal-title hidden"></span><span
             id="modal-entry-id" class="hidden"></span></legend>

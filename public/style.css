@@ -8,19 +8,11 @@ html, body {
 } 
 
 body {
-  /* height: 100vh; */
-  background-image: url('./img/yappr-background-image.JPG');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body.dashboard {
-  background-image: repeating-linear-gradient(180deg, rgb(243,238,238), rgb(170,166,166) 150%);
+  background-image: linear-gradient(rgb(243,238,238), rgb(243,238,238));
 }
 
 main {
-  padding: 50px;
+  padding: 0;
 }
 
 main.dashboard {
@@ -45,7 +37,7 @@ fieldset {
   margin: 0;
 }
 
-/* logos & icons */
+/* icons */
 .icon-large {
   width: 400px;
   display: block;
@@ -54,10 +46,9 @@ fieldset {
 }
 
 .icon-small {
-
-  height: 100px;
-  /* display: block; */
-  margin: 0;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 /* login and signup forms */
@@ -101,10 +92,9 @@ fieldset {
 
 .add-entry-button {
   display: block;
-  width: 75%;
+  width: 90%;
   font-size: 18px;
   font-weight: 500;
-  /* text-align: center; */
   color: white;
   background: #844E4D;
   border: 0;
@@ -118,20 +108,14 @@ fieldset {
   background-color: #946860;
 }
 
-.logout-button {
-  margin-top: 15px;
-  margin-right: 15px;
-  font-size: 18px;
-  font-weight: 500;
-  color: white;
-  background: #844E4D;
-  border-radius: 3px;
+.login-form p {
+  font-size: 17px;
+  text-align: center;
+  margin: 10px 0 0;
+  color: #696969;
 }
 
-.logout-button:hover {
-  background-color: #946860;
-}
-
+/* inputs and buttons */
 input[type="text"], input[type="password"], button[type="submit"] {
   display: block;
   width: 100%;
@@ -167,13 +151,6 @@ button[type="submit"]:focus {
   transition: background 0.1s;
 }
 
-.login-form p {
-  font-size: 17px;
-  text-align: center;
-  margin: 10px 0 0;
-  color: #696969;
-}
-
 #signup-link:hover, #login-link:hover {
   color: rgb(158, 88, 88);
 }
@@ -197,12 +174,21 @@ button[type="submit"]:focus {
 
 /* dashboard */
 .logout-button {
-  float: right;
+  display: block;
+  margin: 10px auto;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  background: #844E4D;
+  border-radius: 3px;
 }
 
-/* dashboard entries */
+.logout-button:hover {
+  background-color: #946860;
+}
+
 .entries-results {
-  width: 75%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   list-style: none;
@@ -221,14 +207,11 @@ button[type="submit"]:focus {
 .entry-item {
   display: block;
   color: grey;
-
   font-size: 16px;
   margin-bottom: 15px;
 }
 
 .entry-button {
-  /* margin-top: 15px;
-  margin-right: 15px; */
   font-size: 16px;
   font-weight: 300;
   color: white;
@@ -252,9 +235,8 @@ button[type="submit"]:focus {
   position: fixed;
   top: 25%;
   background-color: white;
-  width: 75%;
-  left: 50%;
-  margin-left: -37.5%;
+  width: 90%;
+  left: 5%;
 }
 
 .add-entry-modal legend {
@@ -275,4 +257,69 @@ button[type="submit"]:focus {
 
 .opaque {
   opacity: .3;
+}
+
+@media only screen and (min-width: 414px) {
+
+  .icon-small {
+    height: 100px;
+    width: auto;
+  }
+
+}
+
+@media only screen and (min-width: 550px) {
+
+  body {
+    background-image: url('./img/yappr-background-image.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  body.dashboard {
+    background-image: repeating-linear-gradient(180deg, rgb(243,238,238), 100px, rgb(243,238,238), rgb(170,166,166) 100%);
+  }
+
+  main {
+    padding: 25px;
+  }
+
+  .icon-small {
+    height: 100px;
+    display: inline-block;
+    margin-left: 5%;
+  }
+
+  .logout-button {
+    float: right;
+    margin: 15px 5% 0 0;
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+  .icon-small {
+    margin: 0;
+  }
+
+  .logout-button {
+    margin: 15px 15px 0 0;
+  }
+
+  .add-entry-button {
+    width: 75%;
+  }
+
+  .entries-results {
+    width: 75%;
+  }
+
+  .add-entry-modal {
+    width: 75%;
+    left: 50%;
+    margin-left: -37.5%;
+  }
+
 }

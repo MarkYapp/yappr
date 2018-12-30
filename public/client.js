@@ -79,7 +79,7 @@ function generateEntryElement(entry) {
     </li>`;
 }
 
-//generate one long string containing all entries
+//generate a single string containing all entries
 function generateEntryElementString(entriesList) {
   const entries = entriesList.map(entry => generateEntryElement(entry));
   return entries.join("");
@@ -180,7 +180,7 @@ $(function listenForEditSubmit() {
     editedEntry.activity = $('#activity-field').val();
     editedEntry.location = $('#location-field').val();
     editedEntry.notes = $('#notes-field').val();
-    editedEntry.id = $('#modal-entry-id').text(); ///asdfasdfasdfasdfa
+    editedEntry.id = $('#modal-entry-id').text();
     editEntry(editedEntry);
     hideEntryModal();
     getEntries();
@@ -197,12 +197,12 @@ function clearEntryFields() {
 }
 
 function displayEntryModal() {
-  $('.add-entry-modal').removeClass('hidden');
+  $('.add-entry-modal').prop('hidden', false);
   $('.user-dashboard').addClass('opaque');
 }
 
 function hideEntryModal() {
-  $('.add-entry-modal').addClass('hidden');
+  $('.add-entry-modal').prop('hidden', true);
   $('.user-dashboard').removeClass('opaque');
 }
 
