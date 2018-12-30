@@ -7,8 +7,8 @@ Yappr is a blogging app designed to make recording your travel activities easier
 ##### Check it out: [https://aqueous-basin-44559.herokuapp.com/](https://aqueous-basin-44559.herokuapp.com/)
 
 
-![screenshot of yappr login](image.jpg)
-![screenshot of yappr dashboard](image.jpg)
+![screenshot of yappr login](/public/img/yappr-login.png)
+![screenshot of yappr dashboard](/public/img/yappr-dashboard.png)
 
 #### Technology stack: 
 - Node
@@ -24,3 +24,4 @@ Yappr is a blogging app designed to make recording your travel activities easier
 - Mocha
 - Faker
 - jQuery
+
