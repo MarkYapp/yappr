@@ -15,7 +15,7 @@ const { User } = require('./users/models')
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-//GET request to return all
+//GET all entries
 router.get('/', jwtAuth, (req, res) => {
   let username = getUsernameFromJwt(req);
   User.findOne({ 'username': username })
@@ -30,7 +30,7 @@ router.get('/', jwtAuth, (req, res) => {
           res.status(500).json({ message: "Internal server error" });
         });
     })
-})
+});
 
 function getUsernameFromJwt(req) {
   let authHeaderString = JSON.stringify(req.headers.authorization);
@@ -38,9 +38,9 @@ function getUsernameFromJwt(req) {
   let userPayload = jwt.decode(jwtString, JWT_SECRET, "HS256");
   let username = userPayload.user.username;
   return username;
-}
+};
 
-//GET request to /blog-posts, find by id
+//GET a single entry
 router.get('/:id', jwtAuth, (req, res) => {
   Entry.findById(req.params.id)
     .then(entry => {
@@ -77,7 +77,7 @@ router.post("/", jwtAuth, jsonParser, (req, res) => {
           res.status(500).json({ message: "Internal server error" });
         });
     });
-})
+});
 
 router.put("/:id", jwtAuth, jsonParser, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {

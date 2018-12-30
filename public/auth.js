@@ -4,7 +4,7 @@ $(function checkForAuth() {
   if (authToken) {
     showDashboard();
   }
-})
+});
 
 function createNewUser(newUserInfo) {
   fetch('/api/users',
@@ -26,7 +26,7 @@ function createNewUser(newUserInfo) {
       }
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
 $(function listenForSignup() {
   $('form[name=signup-user]').on('submit', function (event) {
@@ -38,7 +38,7 @@ $(function listenForSignup() {
     $('#new-username').val('');
     $('#new-password').val('');
   });
-})
+});
 
 function logInUser(userInfo) {
   fetch('/api/auth/login',
@@ -63,14 +63,14 @@ function logInUser(userInfo) {
       $('#username').val('');
       $('#password').val('');
     })
-}
+};
 
 $(function hideInvalidUserModal() {
   $('.invalid-modal-close-button').click(function (event) {
     event.preventDefault();
     $('.invalid-login-modal').addClass('hidden');
   });
-})
+});
 
 $(function listenForLogin() {
   $('form[name=login-user]').on('submit', function (event) {
@@ -80,7 +80,7 @@ $(function listenForLogin() {
     userInfo.password = $('#password').val();
     logInUser(userInfo);
   });
-})
+});
 
 $(function swapForms() {
   $('main').on('click', '#signup-link', function (event) {
@@ -92,7 +92,7 @@ $(function swapForms() {
     $(".login-form").removeClass("hidden");
     $(".signup-form").addClass("hidden");
   });
-})
+});
 
 function showDashboard() {
   $(".login-form").addClass("hidden");
@@ -102,4 +102,4 @@ function showDashboard() {
   $('main').addClass('dashboard');
   $('body').addClass('dashboard');
   getEntries();
-}
+};

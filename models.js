@@ -12,7 +12,7 @@ const entriesSchema = mongoose.Schema({
   location: { type: String, required: true },
   notes: String,
   date: { type: Date, default: Date.now() }
-})
+});
 
 entriesSchema.methods.serialize = function () {
   return {
@@ -23,7 +23,7 @@ entriesSchema.methods.serialize = function () {
     notes: this.notes,
     userDate: moment(this.date).format('lll')
   }
-}
+};
 
 const Entry = mongoose.model("Entry", entriesSchema);
 

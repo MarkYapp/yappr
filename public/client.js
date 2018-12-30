@@ -15,7 +15,7 @@ function postNewEntry(newEntry) {
       return response.json()
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
 $(function listenForEntrySubmit() {
   $('main').on('click', '#submit-entry-button', function (event) {
@@ -29,7 +29,7 @@ $(function listenForEntrySubmit() {
     clearEntryFields();
     $('.user-dashboard').removeClass('opaque');
   });
-})
+});
 
 $(function listenForNewEntry() {
   $('main').on('click', '.add-entry-button', function (event) {
@@ -38,7 +38,7 @@ $(function listenForNewEntry() {
     $('#submit-entry-button').removeClass('hidden');
     $('#edit-entry-button').addClass('hidden');
   });
-})
+});
 
 //GET all entries
 function getEntries() {
@@ -48,7 +48,6 @@ function getEntries() {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-
       },
       method: "GET"
     })
@@ -59,13 +58,13 @@ function getEntries() {
       renderResults(responseJson);
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
 function renderResults(results) {
   const entries = results.entries
   const entriesElementString = generateEntryElementString(entries);
   $('.entries-results').html(entriesElementString);
-}
+};
 
 //generate an HTML element representing each entry
 function generateEntryElement(entry) {
@@ -77,18 +76,18 @@ function generateEntryElement(entry) {
   </div>
       <span class="entry-item"><h3>${entry.activity} | ${entry.location} | ${entry.userDate}</h2><p>${entry.notes}</p></span>
     </li>`;
-}
+};
 
 //generate a single string containing all entries
 function generateEntryElementString(entriesList) {
   const entries = entriesList.map(entry => generateEntryElement(entry));
   return entries.join("");
-}
+};
 
 function getEntryIndex(entry) {
   const entryID = $(entry).closest('.entry-list-element').attr('entry-index');
   return entryID;
-}
+};
 
 $(function listenForDelete() {
   $('.entries-results').on('click', '.entry-delete-button', function (event) {
@@ -96,7 +95,7 @@ $(function listenForDelete() {
     const entryID = getEntryIndex(event.currentTarget);
     deleteEntry(entryID);
   });
-})
+});
 
 function deleteEntry(entryID) {
   fetch(`/entries/${entryID}`,
@@ -112,9 +111,9 @@ function deleteEntry(entryID) {
       getEntries();
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
-//PUT to update an entry
+//update an entry
 function editEntry(req) {
   fetch(`/entries/${req.id}`,
     {
@@ -130,7 +129,7 @@ function editEntry(req) {
       getEntries();
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
 //GET a single entry
 function getOne(entryID) {
@@ -150,7 +149,7 @@ function getOne(entryID) {
       populateEditFields(res);
     })
     .catch(error => console.log('Bad request'));
-}
+};
 
 function populateEditFields(entrytoUpdate) {
   $('.edit-modal-title').text(`Update blog entry`)
@@ -158,7 +157,7 @@ function populateEditFields(entrytoUpdate) {
   $('#activity-field').val(`${entrytoUpdate.activity}`);
   $('#location-field').val(`${entrytoUpdate.location}`);
   $('#notes-field').val(`${entrytoUpdate.notes}`);
-}
+};
 
 $(function listenForEditEntry() {
   $('main').on('click', '.entry-edit-button', function (event) {
@@ -171,7 +170,7 @@ $(function listenForEditEntry() {
     const entryID = getEntryIndex(event.currentTarget);
     getOne(entryID);
   });
-})
+});
 
 $(function listenForEditSubmit() {
   $('main').on('click', '#edit-entry-button', function (event) {
@@ -186,7 +185,7 @@ $(function listenForEditSubmit() {
     getEntries();
     clearEntryFields()
   });
-})
+});
 
 function clearEntryFields() {
   $('#activity-field').val('');
@@ -194,17 +193,17 @@ function clearEntryFields() {
   $('#notes-field').val('');
   $('.edit-modal-title').addClass('hidden');
   $('.add-modal-title').removeClass('hidden');
-}
+};
 
 function displayEntryModal() {
   $('.add-entry-modal').prop('hidden', false);
   $('.user-dashboard').addClass('opaque');
-}
+};
 
 function hideEntryModal() {
   $('.add-entry-modal').prop('hidden', true);
   $('.user-dashboard').removeClass('opaque');
-}
+};
 
 $(function listenForCancelEntry() {
   $('main').on('click', '#cancel-entry-button', function (event) {
@@ -213,7 +212,7 @@ $(function listenForCancelEntry() {
     clearEntryFields();
     $('edit-modal-title').addClass('hidden');
   });
-})
+});
 
 $(function logoutUser() {
   $('main').on('click', '.logout-button', function (event) {
@@ -221,4 +220,4 @@ $(function logoutUser() {
     localStorage.clear();
     location.reload();
   });
-})
+});
