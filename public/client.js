@@ -1,10 +1,3 @@
-//error handling
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response);
-  }
-  return response;
-}
 
 function postNewEntry(newEntry) {
   fetch('/entries',
@@ -18,19 +11,10 @@ function postNewEntry(newEntry) {
       body: JSON.stringify(newEntry)
     })
     .then(response => {
-      if (!response.ok) {
-        // console.log('client error handling called')
-        // console.log(`${response.statusText}`)
-
-      }
-      return response;
-    })
-
-    .then(response => {
       getEntries();
       return response.json()
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log('Bad request'));
 }
 
 $(function listenForEntrySubmit() {
@@ -66,8 +50,7 @@ function getEntries() {
         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
 
       },
-      method: "GET",
-
+      method: "GET"
     })
     .then(response => {
       return response.json()
@@ -75,6 +58,7 @@ function getEntries() {
     .then(responseJson => {
       renderResults(responseJson);
     })
+    .catch(error => console.log('Bad request'));
 }
 
 function renderResults(results) {
@@ -127,7 +111,7 @@ function deleteEntry(entryID) {
     .then(function () {
       getEntries();
     })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log('Bad request'));
 }
 
 //PUT to update an entry
@@ -145,7 +129,7 @@ function editEntry(req) {
     .then(function () {
       getEntries();
     })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log('Bad request'));
 }
 
 //GET a single entry
@@ -165,7 +149,7 @@ function getOne(entryID) {
     .then(res => {
       populateEditFields(res);
     })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log('Bad request'));
 }
 
 function populateEditFields(entrytoUpdate) {

@@ -6,13 +6,6 @@ $(function checkForAuth() {
   }
 })
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response);
-  }
-  return response;
-}
-
 function createNewUser(newUserInfo) {
   fetch('/api/users',
     {
@@ -27,12 +20,12 @@ function createNewUser(newUserInfo) {
       $('.signup-status').text("Signup successful. Please log in.")
       return response.json()
     })
-    // .then(handleErrors)
     .then(function (response) {
       if (!response.ok) {
         $('.signup-status').text(response.message);
       }
     })
+    .catch(error => console.log('Bad request'));
 }
 
 $(function listenForSignup() {
@@ -57,7 +50,6 @@ function logInUser(userInfo) {
       method: "POST",
       body: JSON.stringify(userInfo)
     })
-    .then(handleErrors)
     .then(response => {
       return response.json()
     })
@@ -70,7 +62,7 @@ function logInUser(userInfo) {
       $('.invalid-login-modal').removeClass('hidden');
       $('#username').val('');
       $('#password').val('');
-    });
+    })
 }
 
 $(function hideInvalidUserModal() {
@@ -84,7 +76,7 @@ $(function listenForLogin() {
   $('#login-button').click(function (event) {
     event.preventDefault();
     let userInfo = {};
-    userInfo.username = $('#username').val();
+    userInfo.username = $('#username').val().toLowerCase();
     userInfo.password = $('#password').val();
     logInUser(userInfo);
   });
