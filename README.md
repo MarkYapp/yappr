@@ -26,3 +26,6 @@ Dashboard:
 - Mocha
 - Faker
 - jQuery
+- JavaScript
+- HTML
+- CSS

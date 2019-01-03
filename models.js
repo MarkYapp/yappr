@@ -4,7 +4,10 @@ const mongoose = require("mongoose");
 
 const { User } = require('./users/models');
 
-const moment = require('moment');
+// const moment = require('moment');
+const moment = require('moment-timezone');
+
+const clientTimezone = moment.tz.guess();
 
 const entriesSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -21,7 +24,7 @@ entriesSchema.methods.serialize = function () {
     activity: this.activity,
     location: this.location,
     notes: this.notes,
-    userDate: moment(this.date).format('lll')
+    userDate: moment(this.date).tz(clientTimezone).format('lll')
   }
 };
 

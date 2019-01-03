@@ -45,7 +45,7 @@ router.post('/', jsonParser, (req, res) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Cannot start or end with whitespace',
+      message: 'Username cannot start or end with whitespace',
       location: nonTrimmedField
     });
   }
