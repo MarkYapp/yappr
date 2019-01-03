@@ -63,8 +63,6 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose disconnected');
 });
 
-
-
 let server;
 
 function runServer(databaseUrl, port = PORT) {
