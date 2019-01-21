@@ -1,86 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Yappr. Travel blogging, made easy.</title>
+    <meta name="description" content="Automate your travel blogging." />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="icon" type="image/png" href="/img/icon.png" />
+  </head>
 
-<head>
-  <title>Yappr. Travel blogging, made easy.</title>
-  <meta name="description" content="Automate your travel blogging.">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="icon" type="image/png" href="/img/icon.png" />
-</head>
+  <body>
+    <main role="main" aria-live="polite">
+      <img
+        src="/img/yappr-logo-large.png"
+        class="icon-large"
+        alt="The yapper logo, a mountain"
+      />
 
-<body>
-  <main role="main" aria-live="polite">
-    <img src="/img/yappr-logo-large.png" class="icon-large" alt="The yapper logo, a mountain">
-    <!-- Log in form -->
-    <form class="login-form" name="login-user" action="#">
-      <fieldset>
-        <legend>Log in</legend>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="username" required />
-        <button type="submit" id="login-button" role="button">Sign In</button>
-      </fieldset>
-      <p>New user? Sign up <a href="#" id="signup-link">here</a></p>
-      <p>Demo Login:<br>username: <b>testuser</b> | password: <b>password</b></p>
-    </form>
+      <!-- Log in form -->
+      <form class="login-form" name="login-user" action="#">
+        <fieldset>
+          <legend>Log in</legend>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" name="username" required />
+          <button type="submit" id="login-button" role="button">Sign In</button>
+        </fieldset>
+        <p>New user? Sign up <a href="#" id="signup-link">here</a></p>
+        <p>
+          Demo Login:<br />username: <b>testuser</b> | password: <b>password</b>
+        </p>
+      </form>
 
-    <!-- Sign up form -->
-    <form class="signup-form" name="signup-user" action="#" aria-live="assertive" hidden>
-      <fieldset>
-        <legend>Sign up</legend>
-        <label for="new-username">Username</label>
-        <input type="text" id="new-username" name="new-username" required />
-        <label for="new-password">Password</label>
-        <input type="password" id="new-password" name="new-password" required />
-        <p class="signup-status"></p>
-        <button type="submit" id="user-signup" class="submit" role="button">Sign Up</button>
-      </fieldset>
-      <p>Have an account? Log in <a href="#" id="login-link">here</a></p>
-    </form>
+      <!-- Sign up form -->
+      <form
+        class="signup-form"
+        name="signup-user"
+        action="#"
+        aria-live="assertive"
+        hidden
+      >
+        <fieldset>
+          <legend>Sign up</legend>
+          <label for="new-username">Username</label>
+          <input type="text" id="new-username" name="new-username" required />
+          <label for="new-password">Password</label>
+          <input
+            type="password"
+            id="new-password"
+            name="new-password"
+            required
+          />
+          <p class="signup-status"></p>
+          <button type="submit" id="user-signup" class="submit" role="button">
+            Sign Up
+          </button>
+        </fieldset>
+        <p>Have an account? Log in <a href="#" id="login-link">here</a></p>
+      </form>
 
-    <!-- invalid user modal -->
-    <div class="invalid-login-modal hidden">
-      <p>Invalid username or password</p>
-      <button class="invalid-modal-close-button">Close</button>
-    </div>
+      <!-- invalid user modal -->
+      <div class="invalid-login-modal hidden">
+        <p>Invalid username or password</p>
+        <button class="invalid-modal-close-button">Close</button>
+      </div>
 
-    <!-- Dashboard -->
-    <section class="user-dashboard" aria-live="polite" hidden>
-      <img src="/img/yappr-logo-header.png" class="icon-small" alt="The yapper logo, a mountain">
+      <!-- Dashboard -->
+      <section class="user-dashboard" aria-live="polite" hidden>
+        <img
+          src="/img/yappr-logo-header.png"
+          class="icon-small"
+          alt="The yapper logo, a mountain"
+        />
 
-      <button class="logout-button">Log out</button>
+        <button class="logout-button">Log out</button>
 
-      <button class="add-entry-button">New entry</button>
+        <button class="add-entry-button">New entry</button>
 
-      <!-- entries go here -->
-      <ul class="entries-results"></ul>
-    </section>
+        <!-- entries go here -->
+        <ul class="entries-results"></ul>
+      </section>
 
-    <!-- add entry modal -->
-    <form class="add-entry-modal" aria-live="polite" hidden>
-      <fieldset>
-        <legend><span class="add-modal-title">Add a blog entry</span><span class="edit-modal-title hidden"></span><span
-            id="modal-entry-id" class="hidden"></span></legend>
-        <label for=" activity">Activity</label>
-        <input class="entry-input" type="text" id="activity-field" name="activity" required />
-        <label for="location">Location</label>
-        <input class="entry-input" type="text" id="location-field" name="location" required />
-        <label for="notes">Notes</label>
-        <textarea id="notes-field" name="notes" rows="4"></textarea>
-        <button type="button" id="cancel-entry-button" class="entry-button" role="button">Cancel</button>
-        <button type="button" id="submit-entry-button" class="entry-button" role="button">Save</button>
-        <button type="button" id="edit-entry-button" class="entry-button hidden" role="button">Submit Changes</button>
-      </fieldset>
-    </form>
-
-  </main>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="auth.js"></script>
-  <script type="text/javascript" src="client.js"></script>
-</body>
-
+      <!-- add entry modal -->
+      <form class="add-entry-modal" aria-live="polite" hidden>
+        <fieldset>
+          <legend>
+            <span class="add-modal-title">Add a blog entry</span
+            ><span class="edit-modal-title hidden"></span
+            ><span id="modal-entry-id" class="hidden"></span>
+          </legend>
+          <label for=" activity">Activity</label>
+          <input
+            class="entry-input"
+            type="text"
+            id="activity-field"
+            name="activity"
+            required
+          />
+          <label for="location">Location</label>
+          <input
+            class="entry-input"
+            type="text"
+            id="location-field"
+            name="location"
+            required
+          />
+          <label for="notes">Notes</label>
+          <textarea id="notes-field" name="notes" rows="4"></textarea>
+          <button
+            type="button"
+            id="cancel-entry-button"
+            class="entry-button"
+            role="button"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            id="submit-entry-button"
+            class="entry-button"
+            role="button"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            id="edit-entry-button"
+            class="entry-button hidden"
+            role="button"
+          >
+            Submit Changes
+          </button>
+        </fieldset>
+      </form>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="auth.js"></script>
+    <script type="text/javascript" src="client.js"></script>
+  </body>
 </html>
