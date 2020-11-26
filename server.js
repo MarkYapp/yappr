@@ -7,6 +7,8 @@ app.use(express.static('public'));
 
 app.use(morgan('common'));
 
+require ('newrelic');
+
 require('dotenv').config();
 const passport = require('passport');
 
