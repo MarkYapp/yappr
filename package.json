@@ -17,7 +17,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "jwt-simple": "^0.5.5",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.23",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
